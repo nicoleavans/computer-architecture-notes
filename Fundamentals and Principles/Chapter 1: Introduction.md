@@ -104,7 +104,7 @@ Software-related developments during the third generation of computing included:
 
 Hardware was becoming more complex, and languages were being simplified. Combined Programming Language (CPL), developed circa 1964 at Cambridge University and the University of London was an attempt to streamline ALGOL  by incorporating only its most important features. Ken Thompson of Bell Laboratories introduced **B** in 1970.
 
-### The Fourth Generation (mid-1970s to 1990)
+### 1.2.4 The Fourth Generation (mid-1970s to 1990)
 This generation saw the continuing development of large-scale integration (LSI) and vey large-scale integration (VLSI) circuits containing tens or hundreds of thousands (and eventually millions) of transistors. For the first time, an entire CPU could be fabricated on one semiconductor microcircuit. The first *microprocessor* was Intel's 4-bit 4004 processor, in 1971. It was too primitive to be of much use in general purpose machines, but useful 8-, 16- and even 32-bit microprocessors followed within a few ears; soon essentially all computers had a single-chip microprocessor. 
 
 Semiconductor main memories made of VLSI RAM and ROM devices became standard, too. (Although core memory became extinct, its legacy lives on in the term *core dump*, which refers to the contents of the main memory logged for diagnostic purposes when a crash occurs.) As VLSI components became widely used, computers continued to become smaller, faster, cheaper, and more reliable.
