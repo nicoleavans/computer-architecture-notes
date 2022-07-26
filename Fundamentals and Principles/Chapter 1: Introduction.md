@@ -104,7 +104,7 @@ Software-related developments during the third generation of computing included:
 
 Hardware was becoming more complex, and languages were being simplified. Combined Programming Language (CPL), developed circa 1964 at Cambridge University and the University of London was an attempt to streamline ALGOL  by incorporating only its most important features. Ken Thompson of Bell Laboratories introduced **B** in 1970.
 
-### 1.2.4 The Fourth Generation (mid-1970s to 1990)
+### The Fourth Generation (mid-1970s to 1990)
 This generation saw the continuing development of large-scale integration (LSI) and vey large-scale integration (VLSI) circuits containing tens or hundreds of thousands (and eventually millions) of transistors. For the first time, an entire CPU could be fabricated on one semiconductor microcircuit. The first *microprocessor* was Intel's 4-bit 4004 processor, in 1971. It was too primitive to be of much use in general purpose machines, but useful 8-, 16- and even 32-bit microprocessors followed within a few ears; soon essentially all computers had a single-chip microprocessor. 
 
 Semiconductor main memories made of VLSI RAM and ROM devices became standard, too. (Although core memory became extinct, its legacy lives on in the term *core dump*, which refers to the contents of the main memory logged for diagnostic purposes when a crash occurs.) As VLSI components became widely used, computers continued to become smaller, faster, cheaper, and more reliable.
@@ -212,9 +212,76 @@ Smartphones essentially replaced cell phones and PDAs. BlackBerry's first smartp
 
 The concept of *cloud computing* became widely known and used in a variety of ways. While defined in many different ways, one common thread is that cloud-based approaches take advantage of wired and/or wireless data communication between local and remote computing systems. The precise location and nature of the system(s) providing cloud services, which could be computational, data storage, or both, is generally unknown and of no particular concern to the end user. Another common technique used in cloud computing is virtualization, where the resources as seen and accessed by a user may - but usually do not - correspond to a specific physical system. For example, a user may log into what appears to be a dedicated Windows or Linux server, but that capability may be only one of many services running on a remote machine that may be natively running a completely different OS. By utilizing cloud based resources, rather than local computing hardware, users can gain benefits including reliability, scalability, and access to services from almost anywhere using a variety of devices.
 
-High-end systems also made great strides in the sixth generation. One of the most important techniques during this time span was the use of Graphics Processing Units (GPUs) to supplement conventional CPUs in handling certain demanding computing jobs. GPUs are specialized processors optimized for the mathematically intensive process of creating images - often in the context of a game, simulation, or virtual environment. Specialized graphics hardware has been in existence since at least the fourth generation, and the term GPU was coined during the fifth generation (1999) by NVIDIA Corporation, which described its GeForce 256 processor as the "world's first GPU". However, it was several years later before the practice of using GPUs for nongraphical tasks (General-Purpose computing on Graphics Processing Units [GPGPU]) was widely adopted. The same type of hardware parallelism that makes GPUs good at processing image data has also been found to be extremely efficient for processing other types of data, particularly performing scientific computations on highly parallel data sets composed of vectors or matrices. The development of proprietary progamming languages, such as NVIDIA's Compute Unified Device Architecture (CUDA), and cross-platform languages, such as OpenCL, have allowed programmers to apply the power of GPUs to many computationally intensive problems. By November 2015, the fraction of the world's top 500 supercomputers that used GPU coprocessors/accelerators to boost theri computational performance had risen to 21% (104/500).
+High-end systems also made great strides in the sixth generation. One of the most important techniques during this time span was the use of Graphics Processing Units (GPUs) to supplement conventional CPUs in handling certain demanding computing jobs. GPUs are specialized processors optimized for the mathematically intensive process of creating images - often in the context of a game, simulation, or virtual environment. Specialized graphics hardware has been in existence since at least the fourth generation, and the term GPU was coined during the fifth generation (1999) by NVIDIA Corporation, which described its GeForce 256 processor as the "world's first GPU". However, it was several years later before the practice of using GPUs for nongraphical tasks (General-Purpose computing on Graphics Processing Units [GPGPU]) was widely adopted. The same type of hardware parallelism that makes GPUs good at processing image data has also been found to be extremely efficient for processing other types of data, particularly performing scientific computations on highly parallel data sets composed of vectors or matrices. The development of proprietary progamming languages, such as NVIDIA's Compute Unified Device Architecture (CUDA), and cross-platform languages, such as OpenCL, have allowed programmers to apply the power of GPUs to many computationally intensive problems. By November 2015, the fraction of the world's top 500 supercomputers that used GPU coprocessors/accelerators to boost their computational performance had risen to 21% (104/500).
+
+Another concept that came to the forefront this generation was *big data analytics*. The combined availability of large, inexpensive hard disk drives and fast, inexpensive networking technology enabled the construction of huge data storage repositories, which may take the form of:
+* direct-attached storage (DAS)
+* network-attached storage (NAS)
+* storage area networks (SANs)
+
+These huge structures allowed for storage of tens or hundreds of terabytes (even petabytes) of data, big data sets, often poorly structured or unstructured and therefore beyond the ability of traditional relational databases and software data analysis tools to handle. These sets have been and are being generated constantly from a variety of sources, such as:
+* point of sale systems
+* web server logs
+* social media sites
+* sensor networks
+* mobile devices
+
+The point of collecting such vast data sets is to analyze them for useful information or insights. A grocery store custom-selects coupons to print for individual shoppers, a politician's campaign team analyzes voting patterns, financial analysts predict stock market trends, government agencies attempt to detect terrorist activity, etc. To enable timely and useful analysis of big data, new tools that leverage distributed processing power and storage have had to be developed. As of the textbook's writing, one of the most popular platforms for big data analytics was *Hadoop*, the Apache Software Foundation's Java-based, open-source software framework for distributed data processing. Tools based on this and other technologies will continue to evolve as the data sets grow in size and complexity. 
+
+## 1.3 Types of Computer Systems
+The first large computers, descendants of which are still used in demanding applications, are referred to as *mainframe* computers. The somewhat less powerful (and cheaper) machines, smaller than mainframes were known as *minicomputers*. (As previously mentioned, they are now essentially extinct.) *Microcomputer* is a very general classification, literally referring to any machine using a microprocessor (or single-chip CPU) as its main processor. As this is true of virtually all computers of the 21st century, the term has largely lost ability to distinguish different classes of systems.
+
+Common types of modern microcomputer systems include: 
+| | |
+| -- | -- |
+| *personal computers* | desktop and portable machines like laptops, notebooks, and netbooks |
+| *workstations* | machines that include high-performance CPUs and GPUs to support applications such as CAD and data visualization |
+| *mobile computers* | tablets, smartphones, smartwatches, etc. |
+| *microcontrollers* | embedded in other products such as appliances, consumer electronics, vehicles, etc. |
+| *game consoles* | specialized machines designed to interact in real time with users and provide realistic virtual environments for gameplay |
+| *digital signal processors* (DSPs) | used to process digitized audio, video, and other analog information |
+| *supercomputers* | used to perform intensive operations need to solve large-scale scientific and engineering problems | 
+
+It is sometimes useful to classify systems by underlying architectural design instead of size, speed, or application. The most fundamental distinction is between systems that have only once CPU and those that use multiple (parallel) processors. Individual CPUs may be described as having a Princeton or Harvard architecture; parallel systems may be classified in several ways depending on the number and nature of the processing units, and the means used to connect them. Some experimental or special-purpose systems defy attempts at classification.
+
+### 1.3.1 Single Processor Systems (Princeton Architecture)
+The original digital computer systems ran programs on a single CPU. This is still true of many systems today. Though man enhancements have been made over the years, almost every processor available today is descended from the original von Neumann architecture develped for the EDVAC and EDSAC in the 1940s. Also known as the Princeton architecture (because John von Neumann was a researcher ath their Institute for Advanced Studies), the von Neumann architecture was the first mdoern design for a computer based on the stored program concept originally developed by Babbage. The block diagram of the von Neumann computer:
 
 
+<p align="center">
+<img src="https://i.imgur.com/pPF4bys.png" width="500">
+</p>
+
+clearly shows i/o devices as well as the single memory used to store both data and program instructions. The control unit and arithmetic/logic unit (ALU) of the von Neumann machine are key parts of the CPU in modern microprocessors (internal registers were added later to provide faster storage for a limited amount of data).
+
+The goal of the orginal von Neumann machine was to numerically solve scientific and engineering problems involving differential equations, but it has proven adaptable to many other classes of problems. It is so versatile that the vast majority of modern computer systems are quite similar, though much faster. The main factor distinguishing this architecture from previous machines (and its primary reason for success and adoption as dominant computing paradigm) was the stored program concept. Because the machine receives its instructions from an easily modified progragram in memory rather than hard wiring, the same hardware can perform a wide variety of tasks. 
+
+The von Neumann machine cycle: 
+
+<p align="center">
+<img src="https://i.imgur.com/OnfJUj7.png" width="500">
+</p>
+
+is the process that must be carried out for each instruction in a stored computer program. When all the steps are complete for a given instruction, the CPU is ready to process the next instruction. 
+
+| step | process |
+| -- | -- |
+| Fetch instruction | read from memory |
+| Decode instruction | hardware inside CPU interprets the bits and determines what operation needs to be done |
+| Generate address of operand(s) | determine location of operands |
+| Fetch operand(s) | fetched from registers, memory locations, or an input device and sent to the ALU |
+| Perform operation | ALU performs operation |
+| Store results | results are stored in specified location or sent to output device |
+
+The *Harvard architecture* is an alternative computer organization devloped by Howard Aiken at Harvard University and used in the Mark-I and Mark-II machines. It aims to avoid the "von Neumann bottleneck" (the single path to memory for acessing both instructions and data) by providing separate memories and buses (access paths) for instructions and data:
+
+<p align="center">
+<img src="https://i.imgur.com/evOO4HD.png" width="600">
+</p>
+
+Thus, instructions may be fetched while data is being read or written. This is one of many examples in which an increase in implementation cost and complexity may be justified in order to obtain a corresponding increase in performance. 
+
+Many modern systems use this type of structure, though it is very rare to see a true Harvard machine (with completely separate memories for code and data). It is common to emply a *modified Harvard architecture* in which main memory is unified (contains code and data), but separate *cache* memories are provided for code and data. This mdoel can achieve virtually the same performance advantage as the original Harvard architecture, but with a simplified overal design and operation of the system. (When programs themselves must be manipulated as data, the task would be more cumbersome with completely separate memories.)
 
 # Footnotes
 $^1$
