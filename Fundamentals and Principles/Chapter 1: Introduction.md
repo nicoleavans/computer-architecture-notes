@@ -23,6 +23,9 @@ Architecture is the design of a computer system. Implementation is a working com
 
 ## 1.2 A Brief History of Computer Systems
 
+<details>
+<p>
+
 ```mermaid
   graph TD;
       A[Greeks and Romans use counting boards to facilitate mathematics]-->B;
@@ -77,7 +80,7 @@ During this time came the advent of the first batch-processing and multiprogramm
 By keeping multiple programs ready to run and by allowing the system to switch between them automatically, the expensive CPU could be kept busy instead of being idle, awaiting human intervention. Programs were still executed one at a time, but when one program was completed or encountered an I/O operation that would take some time to complete, another program would start. 
 
 The first attempts to make human programmers more productive also occurred during this time. Assembly language, as a shorthand or mneumonic form of machine language, was first developed in the early 1950s. The first high level languages came along a few years later:
-$^1$
+[^1]
 * Formula Translation (**Fortran**)
 * Algorithmic Language (**Algol**)
 * Common Business-Oriented Language (**COBOL**)
@@ -108,17 +111,17 @@ Hardware was becoming more complex, and languages were being simplified. Combine
 This generation saw the continuing development of large-scale integration (LSI) and vey large-scale integration (VLSI) circuits containing tens or hundreds of thousands (and eventually millions) of transistors. For the first time, an entire CPU could be fabricated on one semiconductor microcircuit. The first *microprocessor* was Intel's 4-bit 4004 processor, in 1971. It was too primitive to be of much use in general purpose machines, but useful 8-, 16- and even 32-bit microprocessors followed within a few ears; soon essentially all computers had a single-chip microprocessor. 
 
 Semiconductor main memories made of VLSI RAM and ROM devices became standard, too. (Although core memory became extinct, its legacy lives on in the term *core dump*, which refers to the contents of the main memory logged for diagnostic purposes when a crash occurs.) As VLSI components became widely used, computers continued to become smaller, faster, cheaper, and more reliable.
-$^2$
+[^2]
 
 The Intel 486 CPU, introduced in 1989, was the first million-transistor microprocessor. It featured an on-chip floating-point unit and cache memory, and was in many ways the culmination of fourth generation technology. 
 
 The invention of the microprocessor led to what was probably the most important development of the fourth generation: the *microcomputer*. The advent of microcomputers meant that almost anyone could have a computer. The first microcomputers were produced in the mid to late 1970s and were based on 8-bit microprocessors. The Altair computer kit, introduced in 1975, was based on the Intel 8080 microprocessor.
-$^3$
+[^3]
 Steve Wozniak and Steve Jobs developed the Apple I in Wozniak's garage using a Mostek 6502 as the CPU. The refined the design and created the Apple II in 1977, which outsold its competitors (the 6502-based Commodore Pet and the Radio Shack TRS-80, based on a Zilog Z80 processor)
 
 IBM saw the success of the Apple II and entered the microcomputer market with the IBM Personal Computer (or PC)
 . It was a hit, prompting other manufacturers to create compatible PC clones, using Intel's 16-bit 8086 processor. 
-$^4$
+[^4]
 The availability of compatible machines from competing manufacturers helped bring down the price of hardware and make PCs a mass-market commodity.
 
 While IBM enjoyed the success of the original PC and its successor the PC/AT (based on Intel's faster 80286 CPU), Wozniak and Jobs were devloping new systems around Motorola's 16-/32-bit 68000 family of microprocessors. The Apple Lisa (the first microcomputer with a GUI (graphical user interface)) cost too much (about 
@@ -228,6 +231,9 @@ These huge structures allowed for storage of tens or hundreds of terabytes (even
 
 The point of collecting such vast data sets is to analyze them for useful information or insights. A grocery store custom-selects coupons to print for individual shoppers, a politician's campaign team analyzes voting patterns, financial analysts predict stock market trends, government agencies attempt to detect terrorist activity, etc. To enable timely and useful analysis of big data, new tools that leverage distributed processing power and storage have had to be developed. As of the textbook's writing, one of the most popular platforms for big data analytics was *Hadoop*, the Apache Software Foundation's Java-based, open-source software framework for distributed data processing. Tools based on this and other technologies will continue to evolve as the data sets grow in size and complexity. 
 
+</p>
+</details>
+
 ## 1.3 Types of Computer Systems
 The first large computers, descendants of which are still used in demanding applications, are referred to as *mainframe* computers. The somewhat less powerful (and cheaper) machines, smaller than mainframes were known as *minicomputers*. (As previously mentioned, they are now essentially extinct.) *Microcomputer* is a very general classification, literally referring to any machine using a microprocessor (or single-chip CPU) as its main processor. As this is true of virtually all computers of the 21st century, the term has largely lost ability to distinguish different classes of systems.
 
@@ -281,20 +287,147 @@ The *Harvard architecture* is an alternative computer organization devloped by H
 
 Thus, instructions may be fetched while data is being read or written. This is one of many examples in which an increase in implementation cost and complexity may be justified in order to obtain a corresponding increase in performance. 
 
-Many modern systems use this type of structure, though it is very rare to see a true Harvard machine (with completely separate memories for code and data). It is common to emply a *modified Harvard architecture* in which main memory is unified (contains code and data), but separate *cache* memories are provided for code and data. This mdoel can achieve virtually the same performance advantage as the original Harvard architecture, but with a simplified overal design and operation of the system. (When programs themselves must be manipulated as data, the task would be more cumbersome with completely separate memories.)
+Many modern systems use this type of structure, though it is very rare to see a true Harvard machine (with completely separate memories for code and data). It is common to emply a *modified Harvard architecture* in which main memory is unified (contains code and data), but separate *cache* memories are provided for code and data. This mdoel can achieve virtually the same performance advantage as the original Harvard architecture, but with a simplified overal design and operation of the system. (When programs themselves must be manipulated as data, the task would be more cumbersome with completely separate memories.) With modern emphasis on raw microprocessor speed and the use of cache memories to bridge the CPU-memory speed gap, the modified Harvard architecture has become widely useful. It is particularly appropriate for modern pipelined RISC (and post RISC) architectures.
+
+### 1.3.2 Parallel Processing Systems
+
+Parallel systems contain more than one processor. Parallel desribes two or more pieces of hardware that work together, simultaneously engaged in the same or related tasks. The first parallel processing systems were produced in the late 1950s; including the Univac LARC, the Burroughs D825, and the IBM Sage machines.
+
+There are many types of high-performance architectures, most of which are parallel to some extent. Some parallel systems have only a few processors, for example 2 or 4. Others are massively parallel, employing hundreds or thousands of CPUs. There are *multiprocessor* systems, in which several processors share access to main memory, and *cluster* (or *multicomputer*) systems, where processors communicate by sending messages over a network rather than by sharing memory. Modern *multi-core* CPU chips can be considered single-chip multiprocessors. 
+
+Some high-performance systems, like the Cray and NEC systems, operate on vectors of data in a heavily pipelined CPU. *Array processors* are similar, they use a large set of processing elementsto execute the same instruction on all elements of large arrays or matrices at once. 
+
+### 1.3.3 Special Architectures
+Some present and possible systems are not easily classified as Princeton or Harvard architectures, nor as parallel systems. Unique architectures are mostly used in special-purpose machines rather than for general computing. 
+
+| architecture | description | further reading | 
+| -- | -- | --- |
+| dataflow | avoid sequential programming used in von Neumann machines | 7.1 |
+| artificial neural networks | modeled on the human brain and nervous system | 7.2 |
+| fuzzy logic | operate on logical values with a probability of being true or false rather than absolute binary values | 7.3 |
+
+Researchers are working to develop new computing devices based on the principles of quantum physics rather than Boolean algebra. These machines would use quantum effects to simultaneously perform vast numbers of calculations. If they prove to be practical, the may be orders of magnitude more powerful than the fastest supercomputers of today and could render other computer architectures obsolete (at least for some applications). 
+
+## 1.4 Quality of Computer Systems
+Three concepts are mentioned frequently with regard to computer systems:
+* quality
+* cost
+* performance
+
+The following section explores benchmarking, cost factors beyond price, and what it means to say that one architecture has higher quality than another.
+
+### 1.4.1 Generality and Applicability
+Every computer designed, bought, or used has some application or applications in mind. Some computers (like desktop or notebook personal computers) are designed with the idea of doing a variety of computing tasks at different times. We say that the PC you use to do all these things is a *general-purpose* computer, or that it has high *generality*. A computer that can do a variety of things reasonably well probably is not exceptionally good at any of these tasks.
+
+Special-purpose machines are designed to do one type of task very well, while often being average or worse at doing other tasks. Microcontrollers, such as Freescale's ColdFire series, are very good for embedded control processors in microwaves, vehicle transmissions, etc., but would be abysmal at floating-point math or word processing. IBM's mainframe computers are good for processing queries of large databases but not as good for real-time control. Cray supercomputers are excellent at large-scale scientific computing but probably wouldn't run an average-sized spreadsheet better than a MacBook Air. If you need to do one task very well, a machine that is highly *applicable* (tailored to your specific application) is often for the best.
+
+Generality is a problematic aspect of quality as it is not always good or bad. The breadth of applications to be run on a particular system defines how general its architecture and implementation should be. Generality affects cost, as a machine that appeals to a wider audience is more marketable. A more general architecture does lead to a more complex implementation, as the designers try to do a little of everything. This may have a detrimental effect on quality, as the complexity increases, more things can go wrong.
+
+### 1.4.2 Ease of Use
+Whose ease of use are we discussing? From an architectural standpoint, ease of use is referenced from the system programmer's POV rather than that of an applications programmer or the end user. (Thus, ease of use and user-friendliness are separate concepts.) The systems programmers who write operating systems, compilers, linkers, loaders, etc., need to know and use the details of a computer architecture in order to achieve max performance: the performance attained is influenced by the design and implementation. If their job is done well, the end users and even applications programmers d onot need to know a great deal about the details of the underlying architectures in order to realize good performance from the system. They can just write (or run) a high-level language program and let the compiler or OS optimize performance.
+
+Intel's legacy IA-32 (x86) architecture has been a challenge to systems programmers for over 35 years. Excellent OS and compilers are available for it, but it may have been even better and available sooner if the x86 architecture had more ease of use.
+
+### 1.4.3 Expandability
+How easy is it to increase the capabilities of an architecture? Over time, newer and bigger applications will make new demands on architectures. Will system designers be able to respond to these demands within the confines of the architectural specifications? Can performance be scaled up to increase capability (or down, to save money)? Is the memory size specified explicitly, or left to the system designer? Can memory system performance enhancements (like interleaving, cache size/organization, memory management strategy) be changed to fit circumstances, or are their hard architectural constraints? How difficult (or impossible) is it to add CPUs such that they can be utilized by programs?
+
+Some architectures through their design are difficult to expand to higher levels of performance. In that case, higher performance is difficult to realize, or compatibility must be sacrificed. Other architectures are based on more flexible specifications that allow for a wide range of implementations with different performance characteristics. Oracle's (formerly Sun Microsystems') scalable processor architecture (SPARC) is one example of an architecture that has proven very expandable because it was designed that way. The architects' original idea was to have a wide variety of price and performance in computers available sharing a common architecture, thus compatible with one another.
+
+### 1.4.4 Compatibility
+Strictly speaking, one could define compatibility as the ability of different computers to run the same machine language or object code programs. The physical implementation of two systems may be somewhat or completely different; even some architectural elements (such as the number and type of buses, levels of memory hierarchy, and exception handling techniques) may vary. The key point is that if the two machines will have the same instruction set architecture (ISA), then they will be able to run the same software. 
+
+As computer architectures evolve, they may exhibit different types of compatibility. Completel compatible computers are those that have identical instruction set architectures. Each machine understands and executes the exact same set of machine language instructions. Typically because they are implemented by the same manufacturer at about the same time, though sometimes one manufacturer goes out of its way to maintain compatibility with another's architecture. Advanced Micro Devices' (AMD's) 'cloning' of Intel x86 compatible microprocessors is an example of essentially complete compabability between different manufacturer's implementations of an architecture.
+
+The most usual type of compatibility, seen as new features and enhancements added to an architecture over time, is *upward* compatibility. Upwardly compatible computers implement the complete original architectural specification plus additional instructions, addressing, or operational modes, etc. A series of computers, each compatible with its predecessors is known as a computer family. The members of the family are either completely or upwardly compatible. In upwardly compatible computer families, the newer machines can run the programs written (or compiled) for prevous models without modification. These legacy programs do not take advantage of the features available only on the newer machines. An Intel Core-class machine will run executable programs compiled for a Pentium, 486, 386, or early processor, all the way back to the 8086/8088 CPUs of the late 1970s. Only programs optimized for the additional features of the newer processors will take advantage of all they have to offer. Earlier members of a family are not generally *downwardly* compatible with the later machines; you can run older programs on a new processor, but you cannot run programs explicitly written for a newer processor on the old. 
+
+*Forward* compatibility is upward compatibility carried to an extreme. Forward compatibilty means that a later family of machines retains the ability (through direct hardware implementation or emulation of the ISA) to run programs written and compiled for a previous family. Mainframe computer families built by IBM during the 1960s through the 2010s were forward compatible: the zEnterprise family machines being sold as of textbook writing can still run, without recompilation, programs developed for the IBM System/360 and 370 families in the 1960s and early 1970s.
+
+Is compatibility good or bad? It depends on circumstances. If an organization is heavily dependent on the continuing use of legacy code that was written for an older architecture, compatibility is highly desirable. However, retaining the ability to execute legacy code while designing a new ISA significantly complicates the design process. For example, DEC's 32-bit VAX architecture was made more complex and expensive by the decision to implement a PDP-11 compatibility mode. In addition to being more costly, a complex architecture is more likely to harbor hidden pitfalls or even outright flaws; the more engineers try to do in a given design, the more likely they are to make mistakes. 
+
+Compatibility may be at cross purposes with ease of use. Motorola's 68000 family architecture (which made a complete break with its earlier 6800 seires processors) was widely considered to be 'cleaner' than that of Intel's x86 chips, which retained a strong similarity to (if not complete compatibility with) its 8-bit 8080 and 8085 CPUs. 
+
+### 1.4.5 Reliability
+Does the system stay up? How often does it crash, and when it does, how difficult is it to get it going again? A well-designed computer system will be implemented with parts that do their jobs and (logically and physically) fit and work together well. The architectural design of the instruction set will also give rise to software that works well with the hardware, creating a seamless system that gets the job done without crashes. Ultimately, reliability is not just a feature or quality of the hardware, but of a complete system that includes software as well.
+
+Reliability may be partly a function of compatibility: if two supposedly compatible architectures or machines are in reality not 100% compatible, some software may run properly on one machine but not the other. PCs using AMD processors, for example, may be judged inferior in reliability if (due to some subtle compatibility problem) they could not run an application that runs properly on a machine with an Intel processor. (The AMD chip may be otherwise equal or superior to Intel's.) Ease of use can also affect reliability. If a machine's ISA is not clean and easy for systems programmers to work with, OS and compilers are more likely to contain subtle bugs that may show up down the line as an unstable system or application.
+
+## 1.5 Success and Failure of Computer Architectures and Implementations
+
+### 1.5.1 Quality, and the Perception of Quality
+All of the quality factors discussed may affect the success of an architecture. The perception of quality from buyers is at least as important as actual quality. In many cases, users will even pay a premium for the system they believe has the higher quality. This explains why people will pay more for an IBM system than a comparable machine from another manufacturer.
+
+### 1.5.2 Cost Issues
+When we think of cost, we often consider only the initial cost of purchasing a system, though there is an overall cost of continually operating the system over a period of time. Many factors contribute to the monetary cost of operating a computer system, and other cost factors may not directly equate to money but represent some other expenditure of limited resources.
+
+| | | 
+| -- | -- |
+| hardware costs | initial price of computer system hardware, and other items over the life of the system |
+| software costs | licensing fees and upgrades for system software and applications |
+| maintenance and support costs | replacement parts, labor, software updates and licensing fees (these can be hardware or software costs) |
+
+Widely used architectures tend to have lower inital and maintenance costs than those sold in smaller volume. Not all costs are monetary, directly. Any system that makes use of scarce resources incurs a cost, such as power consumption, physical mass, etc. Any time a computer is embedded in a battery operated device, power consumption is a performance trade-off that may result in shorter battery life. Any system to be placed in a vehicle adds weight and thus affects fuel consumption, while also taking up space that could be used for passengers or cargo.
+
+Nonmonetary costs are of paramount concern aboard a spacecraft. The overall monetary cost of a space mission is so high that the incremental price of a computer system may well be negligible. Given the physics of launching the craft, every gram of mass saved is critical. Minimizing the physical volume of a system may also be a major consideration. With operation depending on electricity from solar cells, batteries, or other low-current sources, low power consumption may be more important. If one has to launch a space mission to repair a faulty system (or worse, lose the entire craft because it cannot be reached to make repairs), reliability may be the biggest cost factor of all. 
+
+### 1.5.3 Architectural Openness, Market Timing, and Other Issues
+Architectural specifications have openness if they are published and available so that others can built compatible hardware and software. Though ISA is almost always widely publicized, the details of a particular hardware system's architecture and implementations are sometimes held closely by the manufacturer in fear of competition. People want standard hardware and software cheaply, so although some closed or proprietary architectures have been successful, systems with open specifications tend to do well in the market. This principle was evidenced decades ago in consumer electronics by the commercial success of widely produced VCRs using the open VHS format, adopted by many manufacturers. (Beta machines were technically superior, but produced by only one or two manufacturers.)
+
+This phenomenon is also illustrated in the PC vs Mac debate. Hardly anyone will argue that the original IBM PC was as architectureally elegant, technically advanced, or even aesthetically attractive as Apple's Macintosh. Most of Apple specifications were proprietary, while PC's were open and available - and became industry standards. As a result, PC-compatible 'clones' were and still are made by a large number of manufacturers. Competition drove PC quality up and prices down, while Macs (and their parts) remained more expensive and less readily available for years.
+[^5]
+Other open architectures (like SPARC) have also done well in the marketplace. With increasing acceptance of open source software, open standards for hardware architectures may be even more important to their success in the future. 
+
+An architecture that comes to market before its time (or after) may not suceed even though it and its implementations are high in quality and low in cost. Conversely, inferior or difficult to use architectures have sometimes prevailed because they were in the right place at the right time. Many people lament IBM's choice of the Intel x86 architecture for its PCs - a choice that made Intel the dominant manufacturer of microprocessors for over 35 years. Intel's chief competitor in the late 1970s and early 1980s was Motorola's 68000 CPU family. The 68000 architecture was arguably better than the 8086 and its sucessors in terms of expandability and ease-of-use (and also already had a built-in, compatible upgrade path to a fully 32-bit implementation), but it suffered from poor timing. Intel released its chips several months prior to the 68000 debut. It was precisely during this time frame that IBM's engineers had to make the choice of a CPU for their upcoming PC.
+[^6]
+
+Sometimes an architecture that works reasonably well and is available at the right time is better than a wonderful design that takes too long to produce- or an overly ambitious design that is too costly to produce, demands too much of implementation technology, or is unappreciated.
+
+## 1.6 Measures of Performance
+It is clear that both the architecture and implementation must be optimized in order to get the max performance from a system, but what do we mean by performance, and how do we measure it? Is it possible for two computer manufacturers to both claim their system has higher performance than the other and both be telling the truth (or both be lying)? Probably so; there are many units for quantifying computer system performance and many techniques for measuring it. 
+
+### 1.6.1 CPU Performance
+Most of the traditional measures of raw CPU performance begin with the letter M, standing for the Greek prefix mega (or one milion). It is common to identify and compare microprocessors based on their megahertz rating, which is no more or less than the CPU's clock frequency. One megahertz (MHz) is one million clock cycles per second. Most CPUs in use today have clock speeds that are multiples of 1000 MHz or 1 gigahertz (GHz), which is 1 billion clock cycles per second. 
+
+| | | | |
+| -- | -- | --  | -- |
+| clock frequency | *f* | clock speed measures CPU performance | hertz (MHz or GHz, usually), a measure of frequency (inverse seconds) | 
+| clock cycle time (period) | *t* | the reciprocal of *f* ($t = \frac{1}{f}$) | seconds (ms usually), a measure of time |
+
+So, a 100 MHz processor has a clock cycle time of 10 nanoseconds (ns) and a 1000 MHz (1 GHz) processor has a clock period of 1 ns. 
+
+All else being equal, a higher MHz or GHz number means that a given processor is faster. (All else is rarely equal.) Clock speed in MHz or GHz only tells us how many CPU cycles occur each second, it tells us nothing about how much work the CPU gets done each cycle or each second. Different architectures or even different implementations of the same architecture may vary greatly with regard to internal structure and breakdown of computational operations. Thus comparisons like the following are unfair:
+* Intel Core i7 with an Oracle Sparc T5 on clock speed alone
+* even the Core i7 to Core i5
+* or two Core i7 chips built on different microarchitectures on clock speed alone
+
+Even when considering systems with the same type of CPU, the sytem with higher hz rating is not necessarily faster. A 3.2 GHz system with 16GB of RAM is better than a 3.3 GHz system with only 4GB of RAM.
+
+A somewhat better measure of performance is its **MIPS** (millions of instructions per second) rating. It is better to compare CPUs by MIPS rather than clock speed because it is instructions that do the work. Some CPUs have higher **throughput** (instructions completed per clock cycle) than others, so by considering MIPS instead of hZ, we get a slightly better picture of which system gets more work done. MIPS as a measure of performance is not perfect, it is only a fair comparison if the CPUs have the same (or a very similar) instruction set.
+[^7]
+
+
 
 # Footnotes
-$^1$
+[^1]
 John von Neumann opposed the development of assemblers and high-level language compilers. He preferred to employ legions of human programmers to hand-assemble code into machine language. "It is a waste of a valuable scientific computing instrument to use it to do clerical work."
 
-$^2$
+[^2]
 The more components that are fabricated onto a single chip, the fewer chips that must be used and the less wiring is required. External wiring is more expensive and more easily broken than on-chip connections and tends to reduce speeds. 
 
-$^3$
+[^3]
 Bill Gates and Paul Allen of Microsoft got their start by devloping a BASIC interpreter for the Altair.
 
-$^4$
+[^4]
 The IBM PC and PC/XT actually used the cheaper 8088 chip, which was architecturally identical to the 8086, but had an 8-bit external interface.
+
+[^5]
+The differences are much less pronounced since Apple adopted the Intel x86 architecture for Macs in 2006, replacing the PowerPC and 68000 family processors used in earlier models.
+
+[^6]
+Motorola survived: 68000 family chips were used in Sun's pre-SPARC workstations, the first several generations of Apple Macintosh computers, and still widely used in embedded control applications. But it never had another opportunity to dominate the market.
+
+[^7]
+For this reason, one alternative definition of MIPS is "Meaningless Indication of Processor Speed".
+
 
 # Sources
 * [Computer Architecture: Fundamentals and Principles of Computer Design, 2nd ed.](https://www.amazon.com/Computer-Architecture-Fundamentals-Principles-Design/dp/1498772714) by Joseph Dumas
