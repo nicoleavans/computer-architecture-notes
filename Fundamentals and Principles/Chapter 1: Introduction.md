@@ -452,7 +452,6 @@ I/O requirements vary greatly between applications, often much more so than dema
 # Sources
 * [Computer Architecture: Fundamentals and Principles of Computer Design, 2nd ed.](https://www.amazon.com/Computer-Architecture-Fundamentals-Principles-Design/dp/1498772714) by Joseph Dumas
 
-# Footnotes
 [^1]: John von Neumann opposed the development of assemblers and high-level language   compilers. He preferred to employ legions of human programmers to hand-assemble code into machine language. "It is a waste of a valuable scientific computing instrument to use it to do clerical work."
 
 [^2]: The more components that are fabricated onto a single chip, the fewer chips that   must be used and the less wiring is required. External wiring is more expensive and more   easily broken than on-chip connections and tends to reduce speeds. 
