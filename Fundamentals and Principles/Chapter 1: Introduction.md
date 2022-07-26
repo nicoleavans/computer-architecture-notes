@@ -23,9 +23,6 @@ Architecture is the design of a computer system. Implementation is a working com
 
 ## 1.2 A Brief History of Computer Systems
 
-<details>
-<p>
-
 ```mermaid
   graph TD;
       A[Greeks and Romans use counting boards to facilitate mathematics]-->B;
@@ -41,6 +38,8 @@ Babbage's design was based on the decimal (base 10) system. Some of his contempo
 Another type of computer predated modern digital computers, "analog computers". They were used to solve certain types of problems that could be expressed as systems of differential equations with time as the independent variable. Analog computers are more properly called analog simulators. They do not perform discrete computations on numbers, but rather operations such as addition, subtraction, integration, and differentiation of analog signals, usually represented by electrical voltages. Analog simulators are continuous rather than discrete, and they operate on real values; numbers are measured rather than counted.
 
 The rest of discussion of the history of computing devices here will be restricted to the electronic digital computing devices of the 20th and 21st centuries.
+
+
 
 ### 1.2.1 The First Generation (late 1930s to early 1950s)
 These computer systems were one-of-a-kind machines, each custom built for a particular purpose. Computers of the early 1940s, such as the **Mark-I** (also known as the IBM Automatic Sequence Controlled Calculator or ASCC) and **Mark-II** built by Howard Aiken at Harvard University, were typically built using electromagnetic relays as the switching elements. This made them very slow.
@@ -231,8 +230,6 @@ These huge structures allowed for storage of tens or hundreds of terabytes (even
 
 The point of collecting such vast data sets is to analyze them for useful information or insights. A grocery store custom-selects coupons to print for individual shoppers, a politician's campaign team analyzes voting patterns, financial analysts predict stock market trends, government agencies attempt to detect terrorist activity, etc. To enable timely and useful analysis of big data, new tools that leverage distributed processing power and storage have had to be developed. As of the textbook's writing, one of the most popular platforms for big data analytics was *Hadoop*, the Apache Software Foundation's Java-based, open-source software framework for distributed data processing. Tools based on this and other technologies will continue to evolve as the data sets grow in size and complexity. 
 
-</p>
-</details>
 
 ## 1.3 Types of Computer Systems
 The first large computers, descendants of which are still used in demanding applications, are referred to as *mainframe* computers. The somewhat less powerful (and cheaper) machines, smaller than mainframes were known as *minicomputers*. (As previously mentioned, they are now essentially extinct.) *Microcomputer* is a very general classification, literally referring to any machine using a microprocessor (or single-chip CPU) as its main processor. As this is true of virtually all computers of the 21st century, the term has largely lost ability to distinguish different classes of systems.
@@ -407,26 +404,19 @@ A somewhat better measure of performance is its **MIPS** (millions of instructio
 
 
 # Footnotes
-[^1]
-John von Neumann opposed the development of assemblers and high-level language compilers. He preferred to employ legions of human programmers to hand-assemble code into machine language. "It is a waste of a valuable scientific computing instrument to use it to do clerical work."
+[^1]: John von Neumann opposed the development of assemblers and high-level language   compilers. He preferred to employ legions of human programmers to hand-assemble code into machine language. "It is a waste of a valuable scientific computing instrument to use it to do clerical work."
 
-[^2]
-The more components that are fabricated onto a single chip, the fewer chips that must be used and the less wiring is required. External wiring is more expensive and more easily broken than on-chip connections and tends to reduce speeds. 
+[^2]: The more components that are fabricated onto a single chip, the fewer chips that   must be used and the less wiring is required. External wiring is more expensive and more   easily broken than on-chip connections and tends to reduce speeds. 
 
-[^3]
-Bill Gates and Paul Allen of Microsoft got their start by devloping a BASIC interpreter for the Altair.
+[^3]: Bill Gates and Paul Allen of Microsoft got their start by devloping a BASIC interpreter for the Altair.
 
-[^4]
-The IBM PC and PC/XT actually used the cheaper 8088 chip, which was architecturally identical to the 8086, but had an 8-bit external interface.
+[^4]: The IBM PC and PC/XT actually used the cheaper 8088 chip, which was architecturally identical to the 8086, but had an 8-bit external interface.
 
-[^5]
-The differences are much less pronounced since Apple adopted the Intel x86 architecture for Macs in 2006, replacing the PowerPC and 68000 family processors used in earlier models.
+[^5]: The differences are much less pronounced since Apple adopted the Intel x86 architecture for Macs in 2006, replacing the PowerPC and 68000 family processors used in earlier models.
 
-[^6]
-Motorola survived: 68000 family chips were used in Sun's pre-SPARC workstations, the first several generations of Apple Macintosh computers, and still widely used in embedded control applications. But it never had another opportunity to dominate the market.
+[^6]: Motorola survived: 68000 family chips were used in Sun's pre-SPARC workstations, the first several generations of Apple Macintosh computers, and still widely used in embedded control applications. But it never had another opportunity to dominate the market.
 
-[^7]
-For this reason, one alternative definition of MIPS is "Meaningless Indication of Processor Speed".
+[^7]: For this reason, one alternative definition of MIPS is "Meaningless Indication of Processor Speed".
 
 
 # Sources
