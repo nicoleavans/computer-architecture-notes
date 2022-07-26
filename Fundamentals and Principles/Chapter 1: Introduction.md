@@ -435,7 +435,7 @@ The two predominant components of disk access time (seek time and latency) vary 
 For example: if we can do a transfer every 4 ns, then the frequency of transfers:
 
 $$
-f = \frac{1}{4 \times 10^{-9} s} = 250 \ \mathrm{MHz}
+f = \frac{1}{4 \times 10^{-9} \mathrm{s}} = 250 \ \mathrm{MHz}
 $$
 
 or, 250,000,000 transfers per second. To compute the bandwidth of the transfers, we need to know how much information is transferred at a time. If the bus only allows for 8-bit (or single byte) transfers, then the memory bandwith would be 250 MB/s. If the memory system were constructed of the same type devices but organized such that 64 bits (8 bytes) of data could be read or written per cycle, then the memory bandwidth would be 2000 MB/s (2 GB/s).
