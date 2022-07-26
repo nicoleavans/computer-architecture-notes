@@ -379,7 +379,7 @@ An architecture that comes to market before its time (or after) may not suceed e
 Sometimes an architecture that works reasonably well and is available at the right time is better than a wonderful design that takes too long to produce- or an overly ambitious design that is too costly to produce, demands too much of implementation technology, or is unappreciated.
 
 ## 1.6 Measures of Performance
-It is clear that both the architecture and implementation must be optimized in order to get the max performance from a system, but what do we mean by performance, and how do we measure it? Is it possible for two computer manufacturers to both claim their system has higher performance than the other and both be telling the truth (or both be lying)? Probably so; there are many units for quantifying computer system performance and many techniques for measuring it. 
+It is clear that both the architecture and implementation must be optimized in order to get the max performance from a system, but what do we mean by performance, and how do we measure it? Is it possible for two computer manufacturers to both claim their system has higher performance than the other and both be telling the truth (or both be lying)? Probably so; there are many units for quantifying computer system performance and many techniques for measuring it. A fundamental misconception is that CPU performance alone is a valid comparison of computer systems. A good comparison must also consider memory and I/O performance.
 
 ### 1.6.1 CPU Performance
 Most of the traditional measures of raw CPU performance begin with the letter M, standing for the Greek prefix mega (or one milion). It is common to identify and compare microprocessors based on their megahertz rating, which is no more or less than the CPU's clock frequency. One megahertz (MHz) is one million clock cycles per second. Most CPUs in use today have clock speeds that are multiples of 1000 MHz or 1 gigahertz (GHz), which is 1 billion clock cycles per second. 
@@ -401,7 +401,56 @@ Even when considering systems with the same type of CPU, the sytem with higher h
 A somewhat better measure of performance is its **MIPS** (millions of instructions per second) rating. It is better to compare CPUs by MIPS rather than clock speed because it is instructions that do the work. Some CPUs have higher **throughput** (instructions completed per clock cycle) than others, so by considering MIPS instead of hZ, we get a slightly better picture of which system gets more work done. MIPS as a measure of performance is not perfect, it is only a fair comparison if the CPUs have the same (or a very similar) instruction set.
 [^7]
 
+Another caveat to keep in mind when comparing systems by MIPS is to consider what types (and mixture) of instructions are being executed to achieve that rating. Manufacturers like to quote 'peak' performance of their machines, meaning MIPS rate achieved under ideal conditions. Ideal conditions being, simple instructions the machine can process the fastest. A machine may have a ver high peak MIPS, but if the code it is executing is all **NOPs** (no-operation instructions), then that number does not mean much. If arithmetic computations are being tested, peak MIPS may only include addition and subtraction operations, as multiplication and division typically take longer. A more realistic comparison would involve the MIPS rate sustained over time while executing a given mix of instructions. For example, a certain percentage each of memory access, branching, arithmetic, logic, etc. wuold be more typical of real programs. It would be even better, if possible, to compare MIPS rate achieved while running one's actual program of interest.
 
+MIPS is normally a measure of millions of *integer* instructions that a processor can execute per second. Some programs, particularly science and engineering, place a much heavier premium on the ability to perform computations with real numbers, which are normally computationally represented as floating-point numbers. If the system is to be used to run that type of code, it is much more appropriate to compare CPU (or *floating-point unit* (FPU)) performance by measuring millions of floating-point operations per second (**MFLOPS**). Higher performance systems may be rated in gigaflops (GFLOPS, billions of FLOPS) or teraflops (TFLOPS, trillions of FLOPS). Beware peak FLOPS claims, they seldom reflect machine performance on any practical application. Vector or array-oriented machines may only be able to approach their theoretical max FLOPS when running highly vectorized code; they may perform orders of magnitude worse on scalar floating-point operations. The best comparison is to see what FLOPS rate can be sustained on the actual program of interest or some code with a similar mix of operations.
+
+### 1.6.2 Memory System Performance
+Because the CPU and I/O devices interact with main memory almost constantly, it can become a bottleneck for the entire system if not well designed and matched to the requirements of the rest of the machine. In general, tthe two most important characteristics of a memory system are its **size** and **speed**. It is important that the secondary memory be large enough to provide long-term storage for all programs and data, and likewise important that main memory be sufficiently large to keep most, if not all, of the programs and data that are likely to be in simultaneous use directly available to the processor without time consuming disk accesses. The main memory needs to be fast enough to keep up with the CPU and any other devices that need to read or write information. 
+
+*Memory size* is important, with the more RAM or hard drive space available, the better.
+
+*Memory speed* is important due to the limitations it can place on the CPU. Ideally, the *cycle time* of memory (the time taken to complete one memory access and be ready for the next) should match the processor clock cycle time so that memory can be accessed by the CPU every cycle without waiting. (If the CPU needs to access an instruction plus an operand each clock cycle, a Harvard architecture can be used to avoid having to make memory twice as fast.) Synchronous memory devices, such as synchronous dynamic random access memory (**SDRAM**) typically are rated for their max compatible bus speed in MHz or GHz rather than by cycle time, but it is easy to convert from one specification to the other by takin its reciprocal. *Access time* is another memory speed specification, referring to the time required to read or write a single item in memory. Cycle time may be somewhat longer than access time because many types of main memory devides require some overhead or recovery period between accesses. 
+
+| unit of storage | common abbreviation | size (decimal) based on SI prefix | nearest binary size (for memory addressing) | 
+| --------------- | ------------------- | --------------------------------- | ------------------------------------------- |
+| Kilobyte | KB | 1 thousand ($10^3$) bytes | 1024 ($2^{10}$) bytes |
+| Megabyte | MB | 1 million ($10^6$) bytes | 1,048,576 ($2^{20}$) bytes |
+| Gigabyte | GB | 1 billion ($10^9$) bytes | 1,073,741,824 ($2^{30}$) bytes |
+| Terabyte | TB | 1 trillion ($10^{12}$) bytes | 1.0995x$10^{12}$ ($2^{40}$) bytes |
+| Petabyte | PB | 1 quadrillion ($10^{15}$) bytes | 1.1259x$10^{15}$  ($2^{50}$) bytes |
+| Exabyte | EB | 1 quintillion ($10^{18}$) bytes | 1.1529x$10^{18}$  ($2^{60}$) bytes |
+
+Most semiconductor read-only memory (**ROM**) and dynamic random access memory (**DRAM**) devices typically used in computer main memory applications have cycle times significantly longer than those of the fastest CPUs. This speed gab between the CPU and main memory can be bridged to a considerable extend by using devices with shorter cycle times as a buffer, or cache, memory and/or overlapping memory cycles in a technique known as memory interleaving.
+
+Most semicondutor memories have constant access times. Secondary memory devices, such as disk and tape drives, have access times that are not only much longer, but variable. The time to read or write data from or to a disk includes several components:
+* a small amount of controller overhead
+* *seek time* required for the actuator to step the head in or out to the correct track
+* *latency* or rotational delay required for the disk to get to the correct position to start accessing the information
+* *transfer time* required to actually read or write the data (mainly a function of latency over the sector in question)
+The two predominant components of disk access time (seek time and latency) vary considerably depending on the relative initial and final positions of the head and the disk, and thus are usually given as averages. Best and worst case timings may also be specified. Average acces times for disk storage are on the order of milliseconds, while access times for semiconductor memories are on the order of nanoseconds (roughly a million times faster). It's easy to see why disk drives are never used as a main memory.
+
+*Memory bandwith*, or the amount of information that can be transferred to or from a memory system per unit of time, depends on both the speed of the memory devices and the width of the pathway between memory and the device(s) that need to access it. The cycle time of the memory devices (divided by the interleave factor, if appropriate): tells us how frequently we can transfer data to or from the memory. Taking the reciprocal of this time gives us the frequency of data transfer.
+
+For example: if we can do a transfer every 4 ns, then the frequency of transfers:
+
+$$
+f = \frac{1}{4 \times 10^{-9} s} = 250 \ \mathrm{MHz}
+$$
+
+or, 250,000,000 transfers per second. To compute the bandwidth of the transfers, we need to know how much information is transferred at a time. If the bus only allows for 8-bit (or single byte) transfers, then the memory bandwith would be 250 MB/s. If the memory system were constructed of the same type devices but organized such that 64 bits (8 bytes) of data could be read or written per cycle, then the memory bandwidth would be 2000 MB/s (2 GB/s).
+
+### 1.6.3 I/O System Performance
+There are many types on I/O devices with different purposes and properties. Some are used to interface with human users, and others are used to exchange data with other computing hardware. Fundamentally, all I/O devices' purpose is to move data and programs into and out of the system. Since I/O devices need to communicate data to and from the CPU (or main memory), their transfer rates and bandwidth are important performance characteristics.
+
+I/O *bandwidth* (either for the entire I/O system or a particular device) is defined in essentially the same way as memory bandwidth: the number of bytes that can be transferred per unit of time. The highest I/O bandwidth is usually achieved on direct transfers between main memory and an I/O device, bypassing the processor. Bandwidth may be specified as a peak rate, or more realistically, as a sustained figure under given conditions. The conditions are important because the effective speed of I/O transfers often depends heavily on the size and duration of the transfers. A few large, block transfers are typically much more efficient than a greater number of smaller transfers. However, very large block transfers may overflow device buffers and cause the system to bog down waiting on I/O. There is typically an optimum block size for data transfers between a particular device and memory, which may or may not correspond to the I/O characteristics of your application.
+
+I/O requirements vary greatly between applications, often much more so than demands on CPU and memory. Some applications require almost no interation with the outside world and others (like printers, or graphical programs) may be 'I/O bound'. Thus, although I/O performance is perhaps the most difficult aspect of overall system performance to pin down, in some cases it may be the most important to investigate.
+
+### 1.6.4 Power Performance
+ 
+# Sources
+* [Computer Architecture: Fundamentals and Principles of Computer Design, 2nd ed.](https://www.amazon.com/Computer-Architecture-Fundamentals-Principles-Design/dp/1498772714) by Joseph Dumas
 
 # Footnotes
 [^1]: John von Neumann opposed the development of assemblers and high-level language   compilers. He preferred to employ legions of human programmers to hand-assemble code into machine language. "It is a waste of a valuable scientific computing instrument to use it to do clerical work."
@@ -417,7 +466,3 @@ A somewhat better measure of performance is its **MIPS** (millions of instructio
 [^6]: Motorola survived: 68000 family chips were used in Sun's pre-SPARC workstations, the first several generations of Apple Macintosh computers, and still widely used in embedded control applications. But it never had another opportunity to dominate the market.
 
 [^7]: For this reason, one alternative definition of MIPS is "Meaningless Indication of Processor Speed".
-
-
-# Sources
-* [Computer Architecture: Fundamentals and Principles of Computer Design, 2nd ed.](https://www.amazon.com/Computer-Architecture-Fundamentals-Principles-Design/dp/1498772714) by Joseph Dumas
