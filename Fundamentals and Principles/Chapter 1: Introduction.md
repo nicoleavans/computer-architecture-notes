@@ -259,7 +259,7 @@ The goal of the orginal von Neumann machine was to numerically solve scientific 
 The von Neumann machine cycle: 
 
 <p align="center">
-<img src="https://i.imgur.com/OnfJUj7.png" width="500">
+<img src="https://i.imgur.com/OnfJUj7.png" width="275">
 </p>
 
 is the process that must be carried out for each instruction in a stored computer program. When all the steps are complete for a given instruction, the CPU is ready to process the next instruction. 
