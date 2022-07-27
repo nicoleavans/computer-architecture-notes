@@ -569,7 +569,7 @@ The original Princeton and Harvard architectures have changed little in over 70 
 
 [^11]: Other active (as of textbook) active TPC benchmarks include: TPC-DI (data integration), TPC-DS (decision support/big data), TPC-E (online transaction processing for a brokerage firm), TPC-H (decision support), and TPC-Energy (specification outlines approved method for inclusion of energy consumption metrics for systems running various TPC benchmarks). 
 
-[^12] Perhaps the best knwon and most popular benchmark suites in recent years have been ones devloped by the Open Systems Group (OSG) of the Standard Performance Evaluation Cooperative (SPEC) 
+[^12] Perhaps the best known and most popular benchmark suites in recent years have been ones devloped by the Open Systems Group (OSG) of the Standard Performance Evaluation Cooperative (SPEC) 
 
 [^13]: [Source](http://spec.org/benchmarks.html) updated from textbook
 
