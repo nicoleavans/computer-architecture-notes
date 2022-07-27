@@ -448,7 +448,102 @@ I/O *bandwidth* (either for the entire I/O system or a particular device) is def
 I/O requirements vary greatly between applications, often much more so than demands on CPU and memory. Some applications require almost no interation with the outside world and others (like printers, or graphical programs) may be 'I/O bound'. Thus, although I/O performance is perhaps the most difficult aspect of overall system performance to pin down, in some cases it may be the most important to investigate.
 
 ### 1.6.4 Power Performance
- 
+In modern computer systems, particularly at the high and low ends of the performance spectrum, power consumption (and heat) becomes a significant cost. A wise design engineer will endeavor to minimize power consumption while targeting a system's computing performance goals. 
+
+| | | | 
+| -- | -- | -- | 
+| power | P | the rate of doing work or the energy consumed per unit of time measured in watts | 
+| watt | W | international unit of power, equivalent to one joule per second | 
+| voltage | V | electric potential energy per unit charge measured in joules per coloumb (volts)[^8] |
+| current | I | rate of charge flow past a given point in an electric circuit, measured in coloumbs/second (Amperes)[^9] | 
+
+SI order-of-magnitude prefixes are used, so a very low power circuit might operate on millivolts (mV, with 'milli' denoting 
+$10^{-3}$
+) while drawing microamperes(
+$\upmu\mathrm{A}$
+, where 
+$\upmu$
+means
+$10^{-6}$
+) of current. Conversely, a large system may dissipate power in kilowatts or megawatts (thousand or millions of watts). In a direct current (DC) system, the relationships between these physical quantities is given by
+
+$$
+\mathrm{P = VI}
+$$
+
+A current of one ampere flowing through a circuit with a potential (voltage) of one volt will cause the dissipation of one watt of power. 
+$1\mathrm{W} = (1\mathrm{v})(1\upmu)$ 
+Thus, an increase in voltage or current will increase a system's power dissipation. 
+
+In the Complementary Metal Oxide Semiconductor (CMOS) circuit technology, used to build microprocessor chips, current is mainly dependent on clock frequency. Overclocking increases the power required by the processor, and underclocking can be used to limit power consumption. Reducing power by decreasing power supply voltage has been a continuing trend in microprocessor design. CPU chips of the 1970s and 1980s generally required 5 volts for operation; by the 1990s, Intel's Pentium processors reduced this to 3.5 and then 3.3 volts. Although most modern chips still use this 3.3-3.5 V range for I/O circuitry, operating voltages for the CPU cores themselves have been reduced even further. AMD's K6 processor (1998) had a core voltage of just 2.2 volts. Their latest (as of textbook) A- and FX- series chips (as well as Intel's Core processors) normally operate with 
+$\mathrm{V}_{\mathrm{CORE}}$
+in the range of 1.1-1.5 V. Some versions can run reliably at less than 1 V. 
+
+Power consumption is best limited due to cost and heat. An electrical circuit neither creates nor destroys energy, but converts it from one form to another. In some cases, such as a light-emitting diode (LED) or audio speaker, the electrical energy is converted to light or sound energy. Otherwise, the vast majority is converted to heat energy. If heat cannot be dissipated, components will overheat and the system will fail. 
+
+High-performance large-scale computers have consumed a great deal of electricity since they were first built in the 1940s and 1950s. The UNIVAC I operated at around 125 kilowatts, and required its own dedicated air conditioning system using chilled water and a powerful fan, adding considerable cost to the overall system. As manufacturer's place ever-growing computing power into ever-shrinking packages, the challenges of heat removal have increased. By the 1970s, the Cray-1 supercomputer needed a patened liquid cooling system (using Freon) to keep its logic circuits cool enough to operate. Its descendent, Titan (a Cray XK7 system housed at Oak Ridge National Laboratory, ranked #2 on the November 2015 Top 500 list) draws 8.2MW of powerbut can be air-cooled as it is physically much larger than the Cray-1 (about 5000 sqft or 465sqm). In fairness, it consumes only 14.6 watts per each of its 560,640 computational cores (GPUS and CPUs).
+
+The last statement highlights the need for a more applied criteria for comparison between systems, rather than raw power consumption in watts. All else being equal, a larger and more computationally powerful system will tend to require more electrical power and generate more heat. 'Watts per core' may be of more interest to a potential user (Titan is more than 7800 times as power efficient than its 1970s ancestor by that criteria). Even better perhaps, relate computer performance to power. Examples might include MIPS or MFLOPS per watt. Titan's theoretical peak performance of 27,112.5 TFLOPS yields a max performance-to-power ratio of ~3.3 GFLOPS/W, and its measured performance on the LINPACK benchmark gives the more realistic value 2.14277 GFLOPS/W peak and only 122 FLOPS/W while running INPACK. We can see that computationally power efficiency improved by over a millionfold in the 36 year time span. 
+
+A Green500 list (2x year, since November 2007) is published of the most efficient large computing systems. As in the case of the biannual Top 500 list, each system is evaluated on LINPACK performance, but in this case that value is divided by a systems power consuption. The most powerful systems are not necessarily the most efficient.
+
+| Computer | Country | Top 500 rank | Green500 rank |
+| -------- | ------- | ------------ | ------------- | 
+| Tianhe-2 | China | #1 | #90 |
+| Titan | US | #2 | #63 | 
+| Shoubu ExaScalar | Japan | #136 | #1 |
+
+### 1.6.5 System Benchmarks
+In situations where you cannot test your specific application on a computer before purchase, the next best thing is to identify a standard *benchmark* program, or suite of programs, that performs tasks similar to those of interest. The idea is that if it performs well on the benchmark, it will likely peform well with similar applications. 
+
+Although we discussed CPU, memory, and I/O performance separately, it is extremely rare that any of these alone is a determining factor in performance on a real application. Real performance depends to some degree on the behavior of all three major subsystems, with the relative importance of each depending on the demands of a given application. Some benchmarks examples:
+* very CPU-intensive, dominated by integer or floating-point performance
+* memory-intensive
+* I/O oriented
+* are a balance of the prior examples
+
+Using benchmarks will never be as accurate as a direct program test, but if the right benchmark is chosen, it is much better than using the manufacturer's peak MIPS or peak MFLOPS ratings. 
+
+A number of benchmarks have become more or less de facto standards for evaluating the performance of systems intended for certain types of applications. 
+
+| benchmark | application | description |
+| --------- | ----------- | ----------- | 
+| LINPACK | scientific application performance, an adaptation of a Fortran linear algebra package[^10] | solves a large system of simultaneous equations with single or double precision floating-point coefficients set up in large (100x100 or 1000x1000) matrices |
+| HPLINPACK | highly parallel scientific application | size of matrices can be adjusted in order to match the problem to the best capabilities of the machine under test | 
+| Livermore Loops | evaluate performance of supercomputers, particularly vector-oriented machines | 24 Fortran loops that operate on floating-point data sets. length of loops is varied so that the benchmark runs on  |
+| Whetstones | nonvector applications, particularly scalar floating-point units | Algol and Fortran benchmark produces system speeds in thousands or millions of Whetstone instructions per second (KWIPS or MWIPS) | 
+| Dhrystones | nonvector applications | Ada, later Pascal and C, a mix of integer instructions | 
+| TPC-A | business transaction processing, intensive I/O | simulated online processing of debit and credit transactions in banking environment (deprecated) | 
+| TPC-B | business transaction processing, intensive I/O | similar, but operated in batch mode instead of using a remote terminal emulator (deprecated) | 
+| TPC-C | business transaction processing, intensive I/O | models a business order processing and distributed warehouse environment (still in use)[^11] |
+| SPEC | evaluate performance of the system processor, memory, and compiler. few i/o or os demands  | actual application code, not synthetic or virtual code written just to exercise the system.[^12] | 
+| SPECint | integer benchmark suite | same, currently 12 integer applications in C and C++ |
+| SPECfp | floating-point suite | same, currently 19 fp applications in Fortran, C, and C++ |
+
+Because SPEC requires system testers to report the results for individual applications as well as the composite ratings and because all the results are available to the [public](www.spec.org), anyone can compare systems of interest using the entire benchmark suite or any subset of it. Thorough system documentation must be submitted with tests, including:
+* number, type, and clock frequency of system processors
+* amount and type of Ram installed
+* cache memory details
+* exact operating system and compiler used, with compiler optimizations
+* disk type and file system use
+The original SPEC CPU benchmarks were introduced in 1989; as computer systems have become more powerful, SPEC suites have been updated. Periodic revision revents comparing systems with 'toy' benchmarks (some of the original CPU89 programs would fit entirely in cache on modern systems). SPEC CPU89 was followed by CPU92, CPU95, CPU2000, CPU2006, and most recently CPU2017. [^13] 
+
+Other suites include:
+| benchmark | criteria |
+| -- | -- | 
+| SPECviewperf | measures graphics performance | 
+| SPECjbb | java application benchmark |
+| SPEC SFS | evaluates file servers |
+| SPEC OMP | shared-memory parallel processing systems |
+| SERT | (Server Efficiency Rating Tool) energy efficiency |
+
+No benchmark can perfectly predict performance, but SPEC's openness, industry-wide acceptance, and continual development of new, relevant test suites make it likely SPEC benchmarks will help computing professsionals choose systems for years to come.
+
+## 1.7 Chapter Review
+Much has changed about the way we build computers. Relays and vacuum tubes have given way to transistors and integrated circuits containing billions of tiny components. Magnetic drums, punch cards, and core memory have been replaced by high-speed hard drives, even faster flash drives, optical disk burners and synchronous DRAM. Computer implementation technologies have become exponentially smaller, faster, and cheaper. 
+
+The original Princeton and Harvard architectures have changed little in over 70 years. Index registers and addressing modes conceived in the 1950s are still in use. The concept of virtual memory dates to the late 1950s, and cache memory has been arond since the early 1960s.[^14] Overlapping of operations in time by pipelining processors and interleaving memories are decades-old concepts. RISC architectures and superscalar execution were exemplified by the CDC 6600 in 1964. 
+
 # Sources
 * [Computer Architecture: Fundamentals and Principles of Computer Design, 2nd ed.](https://www.amazon.com/Computer-Architecture-Fundamentals-Principles-Design/dp/1498772714) by Joseph Dumas
 
@@ -465,3 +560,17 @@ I/O requirements vary greatly between applications, often much more so than dema
 [^6]: Motorola survived: 68000 family chips were used in Sun's pre-SPARC workstations, the first several generations of Apple Macintosh computers, and still widely used in embedded control applications. But it never had another opportunity to dominate the market.
 
 [^7]: For this reason, one alternative definition of MIPS is "Meaningless Indication of Processor Speed".
+
+[^8]: [Source](http://hyperphysics.phy-astr.gsu.edu/hbase/electric/elevol.html) 
+ 
+[^9]: [Source](http://hyperphysics.phy-astr.gsu.edu/hbase/electric/elecur.html) 
+
+[^10]: The Fortran linear algebra package was later translated into C. The package was devloped by Dr. Jack Dongarra of the University of Tennessee at Knoxville. 
+
+[^11]: Other active (as of textbook) active TPC benchmarks include: TPC-DI (data integration), TPC-DS (decision support/big data), TPC-E (online transaction processing for a brokerage firm), TPC-H (decision support), and TPC-Energy (specification outlines approved method for inclusion of energy consumption metrics for systems running various TPC benchmarks). 
+
+[^12] Perhaps the best knwon and most popular benchmark suites in recent years have been ones devloped by the Open Systems Group (OSG) of the Standard Performance Evaluation Cooperative (SPEC) 
+
+[^13]: [Source](http://spec.org/benchmarks.html) updated from textbook
+
+[^14]: Regardless of time period, processors have always been faster than main memory.
