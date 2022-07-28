@@ -19,7 +19,7 @@ I/O system design is concerned with getting programs and data into the memory (a
 All subsystems must be well matched and well suited to the intended application in order for the overall system to perform well.
 
 ### 1.1.1 Architecture vs. Implementation
-Architecture is the design of a computer system. Implementation is a working computer system. Architecutrual vision affects the type of technologies chosen for implementation, and new implementation technologies can broaden the scope of design.
+Architecture is the design of a computer system. Implementation is a working computer system. Architectural vision affects the type of technologies chosen for implementation, and new implementation technologies can broaden the scope of design.
 
 ## 1.2 A Brief History of Computer Systems
 
