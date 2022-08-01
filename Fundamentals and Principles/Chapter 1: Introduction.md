@@ -430,7 +430,7 @@ Most semicondutor memories have constant access times. Secondary memory devices,
 * *transfer time* required to actually read or write the data (mainly a function of latency over the sector in question)
 The two predominant components of disk access time (seek time and latency) vary considerably depending on the relative initial and final positions of the head and the disk, and thus are usually given as averages. Best and worst case timings may also be specified. Average acces times for disk storage are on the order of milliseconds, while access times for semiconductor memories are on the order of nanoseconds (roughly a million times faster). It's easy to see why disk drives are never used as a main memory.
 
-*Memory bandwith*, or the amount of information that can be transferred to or from a memory system per unit of time, depends on both the speed of the memory devices and the width of the pathway between memory and the device(s) that need to access it. The cycle time of the memory devices (divided by the interleave factor, if appropriate): tells us how frequently we can transfer data to or from the memory. Taking the reciprocal of this time gives us the frequency of data transfer.
+*Memory bandwidth*, or the amount of information that can be transferred to or from a memory system per unit of time, depends on both the speed of the memory devices and the width of the pathway between memory and the device(s) that need to access it. The cycle time of the memory devices (divided by the interleave factor, if appropriate): tells us how frequently we can transfer data to or from the memory. Taking the reciprocal of this time gives us the frequency of data transfer.
 
 For example: if we can do a transfer every 4 ns, then the frequency of transfers:
 
@@ -438,7 +438,7 @@ $$
 f = \frac{1}{4 \times 10^{-9} \mathrm{s}} = 250 \ \mathrm{MHz}
 $$
 
-or, 250,000,000 transfers per second. To compute the bandwidth of the transfers, we need to know how much information is transferred at a time. If the bus only allows for 8-bit (or single byte) transfers, then the memory bandwith would be 250 MB/s. If the memory system were constructed of the same type devices but organized such that 64 bits (8 bytes) of data could be read or written per cycle, then the memory bandwidth would be 2000 MB/s (2 GB/s).
+or, 250,000,000 transfers per second. To compute the bandwidth of the transfers, we need to know how much information is transferred at a time. If the bus only allows for 8-bit (or single byte) transfers, then the memory bandwidth would be 250 MB/s. If the memory system were constructed of the same type devices but organized such that 64 bits (8 bytes) of data could be read or written per cycle, then the memory bandwidth would be 2000 MB/s (2 GB/s).
 
 ### 1.6.3 I/O System Performance
 There are many types on I/O devices with different purposes and properties. Some are used to interface with human users, and others are used to exchange data with other computing hardware. Fundamentally, all I/O devices' purpose is to move data and programs into and out of the system. Since I/O devices need to communicate data to and from the CPU (or main memory), their transfer rates and bandwidth are important performance characteristics.
