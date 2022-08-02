@@ -132,6 +132,8 @@ graph TD
 
 ```
 
+get instruction -> decode instruction -> create operand addresses -> get operands -> do operation -> store results ->
+
 </p>
 </details>
 
@@ -202,10 +204,28 @@ graph TD
     <p>
 
     $$
-    \mathrm{clock \ cycle} = .5 \mathrm{ns}
+    \mathrm{clock \ cycle} = .5 \ \mathrm{ns}
     $$
 
-    > Research beyond text needed
+    $$
+    \mathrm{integer \ instructions} = 1 \ \mathrm{clock \ cycle}
+    $$
+
+    $$
+    \frac{1 \ \mathrm{instruction}}{.5 \ \mathrm{ns}} = \frac{2 \ \mathrm{instruction}}{1 \ \mathrm{ns}}
+    $$
+
+    > Then multiply by 1 billion for nanosecond conversion,
+
+    $$
+    2000000000 \ \frac{\mathrm{instructions}}{\mathrm{second}}
+    $$
+
+    > Divide by 1 million such that,
+
+    $$
+    2000 \ \mathrm{MIPS}
+    $$
 
     </p>
     </details>
@@ -216,10 +236,36 @@ graph TD
     <p>
 
     $$
-    \mathrm{clock \ cycle} = .5 \mathrm{ns}
+    \mathrm{clock \ cycle} = .5 \ \mathrm{ns}
     $$
 
-    > Research beyond text needed
+    > We need to find how many clock cycles the average instruction takes to be executed:
+
+    $$
+    .4(2) + .35(1) + .15(3) + .1(2)
+    $$
+
+    $$
+    = .8 + .35 + .45 + .2 = 1.8 \ \mathrm{clock \ cycles}
+    $$
+
+    > We need to find the average time to complete an instruction:
+
+    $$
+    1.8 * .5 \ \mathrm{ns} = .9 \ \mathrm{ns} = \frac{1 \ \mathrm{instruction}}{.9 \ \mathrm{ns}}
+    $$
+
+    > Convert from nanoseconds to seconds (multiply by 1 billion):
+
+    $$
+    \frac{1 \ \mathrm{instruction}}{.9 \ \mathrm{ns}} = 900000000 \ \frac{\mathrm{instructions}}{\mathrm{s}}
+    $$
+
+    > Convert to MIPS (divide by 1 million):
+
+    $$
+    900000000 \ \frac{\mathrm{instructions}}{\mathrm{s}} = 900 \ \mathrm{MIPS}
+    $$
 
     </p> 
     </details>
@@ -240,7 +286,30 @@ graph TD
     <p>
 
     > Millions of floating point operations per second. 
-    > Research beyond text needed
+
+    $$
+    \mathrm{clock \ cycle} = .5 \ \mathrm{ns}
+    $$
+
+    $$
+    \mathrm{floating \ point \ instructions} = 5 \ \mathrm{clock \ cycles}
+    $$
+
+    $$
+    5 * .5 \ \mathrm{ns} = \frac{1 \ \mathrm{FLOP}}{2.5 \ \mathrm{ns}} 
+    $$
+
+    > Multiply by 1 million to get MFLOP: 
+
+    $$
+    \frac{1 \ \mathrm{FLOP}}{2.5 \ \mathrm{ns}} = \frac{1000000 \ \mathrm{FLOP}}{2500000 \ \mathrm{ns}} = \frac{1 \ \mathrm{MFLOP}}{2500000 \ \mathrm{ns}}
+    $$
+
+    > Convert to seconds:
+
+    $$
+    2500000 \ \mathrm{ns} = .0025 \ \mathrm{s} = \frac{1 \ \mathrm{MFLOP}}{.0025 \ \mathrm{s}} = 400 \ \mathrm{MFLOPS}
+    $$
 
     </p> 
     </details>
@@ -258,13 +327,46 @@ graph TD
 
 20. A memory system can read or write a 64-bit value every 2 ns. Express its bandwidth in megabytes per second. 
 <details><summary>ANSWER</summary>
+
 <p>
 
+> Memory bandwidth can be defined as the number of bytes that can be transferred per unit of time. The cycle time of the memory tells us how frequently we can transfer data to or from the memory. 
+
 $$
-f = \frac{1}{2 \times 10^{-9}\mathrm{s}} = 500,000,000 = 500 \ \mathrm{MHz}
+\mathrm{bandwidth} = 64 \ \mathrm{bits} \ \mathrm{per} \ 2 \ \mathrm{ns} = \frac{64 \ \mathrm{bits}}{2 \ \mathrm{ns}}
 $$
 
-> Research beyond text needed
+$$
+1 \ \mathrm{byte} = 8 \ \mathrm{bit}
+$$
+
+$$
+8 \ \mathrm{bytes} = 64 \ \mathrm{bits}
+$$
+
+> Thus, 
+
+$$
+\frac{64 \ \mathrm{bits}}{2 \ \mathrm{ns}} = \frac{8 \ \mathrm{bytes}}{2 \ \mathrm{ns}} = \frac{4 \ \mathrm{bytes}}{1 \ \mathrm{ns}} = 4 \ \frac{\mathrm{bytes}}{\mathrm{ns}}
+$$
+
+$$
+4 \ \frac{\mathrm{bytes}}{\mathrm{ns}} = 4000000000 \ \frac{\mathrm{bytes}}{\mathrm{s}} = 4000 \ \frac{\mathrm{megabytes}}{\mathrm{s}} = 4000 \ \mathrm{MB}
+$$
+
+> or,
+
+$$
+\mathrm{bandwidth} = 8 \ \mathrm{bytes} \ \mathrm{per} \ 2 \ \mathrm{ns} = \frac{8 \ \mathrm{bytes}}{2 \ \mathrm{ns}}
+$$
+
+$$
+\frac{1 \ \mathrm{second}}{2 \ \mathrm{ns}} = 500000000 
+$$
+
+$$
+500000000 * 8 \ \mathrm{bytes} = 4000000000 \ \frac{\mathrm{bytes}}{\mathrm{s}} = 4000 \ \frac{\mathrm{megabytes}}{\mathrm{s}}
+$$
 
 </p> 
 </details>
@@ -306,27 +408,27 @@ _____________ A program or set of programs that are used as standardized means o
 <details><summary>ANSWER</summary>
 <p>
 
-<u>implementation</u> The actual, physical realization of a computer system as opposed to the conceptual or block-level design
+<u>implementation</u> | The actual, physical realization of a computer system as opposed to the conceptual or block-level design
 
-<u>Babbage's Analytical Engine</u> This was the first design for a programmable digital computer, but a working model was never completed.
+<u>Babbage's Analytical Engine</u> | This was the first design for a programmable digital computer, but a working model was never completed.
 
-<u>integrated circuits</u> This technological development was an important factor in moving from second-generation to third-generation computers
+<u>integrated circuits</u> | This technological development was an important factor in moving from second-generation to third-generation computers
 
-<u>CDC 6600</u> This system is widely considered to have been the first supercomputer.
+<u>CDC 6600</u> | This system is widely considered to have been the first supercomputer.
 
-<u>Altair computer kit</u> This early microcomputer kit was based on an 8 bit microprocessor; it introduced 10,000 hobbyists to (relatively) inexpensive personal computing.
+<u>Altair computer kit</u> | This early microcomputer kit was based on an 8 bit microprocessor; it introduced 10,000 hobbyists to (relatively) inexpensive personal computing.
 
-<u>microcontroller</u> This type of computer is embedded inside another elctronic or mechanical device, such as a cellular telephone, microwave oven, or automobile transmission.
+<u>microcontroller</u> | This type of computer is embedded inside another elctronic or mechanical device, such as a cellular telephone, microwave oven, or automobile transmission.
 
-<u>Harvard architecture</u> A type of computer system design in which the CPU uses separate memory buses for accessing instructions and data operands.
+<u>Harvard architecture</u> | A type of computer system design in which the CPU uses separate memory buses for accessing instructions and data operands.
 
-<u>compatibility</u> An architectural attribute that expresses the support provided for previous or other architectures by the current machine. 
+<u>compatibility</u> | An architectural attribute that expresses the support provided for previous or other architectures by the current machine. 
 
-<u>FLOPS (MFLOPS, GFLOPS, etc.)</u> A CPU performance index that measures the rate at which computations can be performed on real numbers rather than integers.
+<u>FLOPS (MFLOPS, GFLOPS, etc.)</u> | A CPU performance index that measures the rate at which computations can be performed on real numbers rather than integers.
 
-<u>bandwidth</u> A measure of memory or I/O performance that tells how much data can be transferred to or from a device per unit of time.
+<u>bandwidth</u> | A measure of memory or I/O performance that tells how much data can be transferred to or from a device per unit of time.
 
-<u>benchmark</u> A program or set of programs that are used as standardized means of comparing the performance of different computer systems.
+<u>benchmark</u> | A program or set of programs that are used as standardized means of comparing the performance of different computer systems.
 
 </p> 
 </details>
