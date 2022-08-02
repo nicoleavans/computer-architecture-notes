@@ -68,20 +68,36 @@ The operating system allocates each process a maximum of four page frames at a t
 17. Fill in the blanks bellow with the msot appropriate term or concept discussed in this chapter: 
 
 ________ A characteristic of a memory device that refers to the amount of information that can be stored in a given physical space or volume.
+
 ________ A semiconductor memory device made up of a large array of capacitors; its contents must be periodically refreshed in order to keep them from being lost. 
+
 ________ A developing memory technology that operates on the principle of magnetoresistance; it may allow the devlopment of "instant-on" computer systems. 
+
 ________ A type of semiconductor memory device, the contents of which cannot be overwritten during normal operation but can be erased using ultraviolet light.
+
 ________ This type of memory device is also known as a CAM.
+
 ________ A register in an associative memory that contains the item to be searched for.
+
 ________ The principle that allows hierarchical storage systems to function at close to the speed of the faster, smaller level(s). 
+
 ________ This occurs when a needed instruction or operand is not found in cache, so a main memory access is required.
 ________ The unit of information that is transferred between a cache and main memory.
+
 ________ The portion of a memory address that determines wheter a cache line containst the needed information.
+
 ________ The most flexible but most expensive cache organization, in which a block of information from main memory can reside anywhere in the cache. 
+
 ________ A policy whereby writes to cached locations update main memory only when the line is displaced.
+
 ________ This is set or cleared to indicate whether a given cache line has been initialized with "good" information  or contains "garbage" because it is not yet initialized.
+
 ________ A hardware unit that handles the details of address translation in a system with virtual memory.
+
 ________ This occurs when a program makes reference to a logical segment of memory that is not physically present in main memory.
+
 ________ A type of cache used to hold virtual-to-physical address translation information.
+
 ________ This is set to indicate that the contents of a faster memory subsystem have been modified and need to be copied to the slower memory when they are displaced.
+
 ________ This can occur during the execution of a string or vector instruction when part of the operand is present in main physical memory and the rest is not. 
