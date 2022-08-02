@@ -1,4 +1,4 @@
-# Chapter 2 Review Questions\
+# Chapter 2 Review Questions
 
 1. Consider the various aspects of an ideal computer memory discussed in section 2.1.1 and the characteristics of available memory devices discussed in Section 2.1.2. Fill in the columns of the table below with the following types of memory devices, in order from most desirable to least desirable: magnetic hard disk, semiconductor DRAM, CD-R, DVD-RW, semiconductor ROM, DVD-R, semiconductor flash memory, magnetic floppy disk, CD-RW, semiconductor static RAM, semiconductor EPROM
 
