@@ -137,4 +137,185 @@ through
 $65,535$
 .
 
-This high-order interleaved memory organization is simple, easy to understand, requires few external parts (just one decoder), and offers the advantage that if one of the devices fails, the others can remain operational and provide a large amount of contiguously addressed memory. 
+This high-order interleaved memory organization is simple, easy to understand, requires few external parts (just one decoder), and offers the advantage that if one of the devices fails, the others can remain operational and provide a large amount of contiguously addressed memory. In our example, if device 
+$0$
+or 
+$3$
+fails, we would still have 
+$48 \mathrm{KB}$
+of contiguous memory space, and if device 
+$1$
+or 
+$2$
+fails, we would have one working
+$32 \mathrm{KB}$
+block of memory and one
+$16 \mathrm{KB}$
+block. It also has the beneficial side-effect that if the memory system is to be dual- or multiported (accessible from more than one bus, as in a system with multiple processors) and if the necessary hardware is added to support this, then much of the time access may occur to separate banks simultaneously, thus multiplying the effective memory bandwidth. 
+
+The disadvantage of high-order interleaving (when used with a single data/address bus) is that at any given time, all but one of our memory devices (or banks of devices) are idle. This one device or group of devices will respond to a read or write request in its specified access time. The memory system as a whole will only be as fast as any one device. 
+
+### 2.2.2 Low-order Interleaving
+High-order memory interleaving is the default organization for most main memory systems. *Low-order interleaving* is the type of interleaving used to improve bandwidth to a single processor (or any other device capable of reading and writing memory). 
+
+The difference from high-order interleaving is in how we map the memory addresses across the different devices or groups of devices. Returning to the 
+$64\mathrm{KB}$
+memory example, instead of connecting the low-order 14 address bits from the CPU to all four devices in common, we odonnect the higher-order 14 bits; and rather than connnect the high-order two address bits to the external decoder, we generate the four chip select inputs by decoding the two lowest-order address bits. The decoder outputs are still mutually exclusive, so still only one of the four memory devices will be enabled at a time. So what is the point?
+
+<p align="center">
+<img src="https://i.imgur.com/FOlc78M.png" width="500">
+</p>
+
+The important difference between this example and the prior is in the permutation of memory addresses over the several devices. There are still a total of 
+$65,536$
+memory locations equally divided over the four chips, but now consecutively numbered memory locations are always in different devices. The addresses are assigned in rotation, such that device
+$0$
+contains memory locations
+$0,\ 4, \ 8, \ 12, \ ...$
+through
+$65,532$
+(all the ones whose binary addresses end in 
+$00$
+). Device
+$1$
+contains all the locations with binary addresses ending in 
+$01 \ (1, \ 5, \ 9, \ 13, \ ..., \ 65,533)$
+. Devices
+$2$
+and
+$3$
+, respectively, contail all the locations with addresses ending in binary
+$10$
+and 
+$11$
+. Thus, if we access sequentially numbered memory locations, the accesses will be distributed over all four devices on a rotationg basis. 
+
+The big advantage of this organization is, given a fast enough bus and some extra hardware[^2], it is possible to have several memory accesses in progress at the same time. The likelihood of being able to take advantage of this low-order interleaving scheme is high because computer systems frequently access sequentially numbered memory locations consecutively. 
+
+For example, program instructions are stored and executed sequentially except when that order is modified by control transfer instructions. Block I/O transfers are normally done to or from sequential locations in a memory buffer. Many data structures (arrays, lists, strings, etc.) are stored consecutively in memory. Even scalar variables are often grouped together by compilers into a contiguous block of memory.
+
+[^2]: To allow separate latching of the addresses and transfer of data for each of the devices or banks of devices. 
+
+In a low-order interleaved system, any time we access consecutively numbered memory locations, each successive access is to a different device. This allows a significant performance improvement over high-order interleaving because it is not necessary to wait for the current memory access to complete before starting the next one. 
+
+>Suppose that in our example we want to read memory locations 
+$0$ 
+through
+$63$
+in succession. 
+
+>We initate a read operation to location
+$0$
+, which is in device
+$0$
+; say the cycle time for the memory device is 
+$t$
+nanoseconds. After
+$\frac{t}{4}$ 
+ns have passed, we initiate a read operation to location
+$1$
+. (We can do this because this location is in device
+$1$
+, which is currently idle.) 
+
+>Another
+$\frac{t}{4}$ 
+ns later, we start a read operation on location
+$2$
+, which is in device
+$2$
+; after another 
+$\frac{t}{4}$ 
+ns, we start a read of location
+$3$
+in device
+$3$
+. 
+
+>At this point, we have four memory accesses in progress simultaneously. After four
+$\frac{t}{4}$ 
+intervals, the data from the read of location
+$0$ 
+are placed on the bus and transferred to the CPU. Device
+$0$
+is now free again, and we can initiate the read of location
+$4$
+from that same device. 
+
+>In another
+$\frac{t}{4}$ 
+ns, we will tranfer the contents of location 
+$1$
+and start the reading location
+$5$
+; 
+$\frac{t}{4}$ 
+ns later, we will transfer the contents of location
+$2$
+and start the read of location
+$6$
+; and so on, rotating among the four devices until we transfer the contents of all 64 memory locations. 
+
+>By overlapping memory accesses and keeping all four devices busy at the same time, we will get the entire job done in approximately one quarter the time that would have been required if the system used high-order interleaving.
+
+```mermaid
+sequenceDiagram
+    participant CPU
+    participant Device0
+    participant Device1
+    participant Device2
+    participant Device3
+
+    CPU->>Device0: Read 0 
+    CPU->>Device1: Read 1
+    CPU->>Device2: Read 2
+    CPU->>Device3: Read 3
+    Device0->>CPU: Transfer 0
+    CPU->>Device0: Read 4
+    Device1->>CPU: Transfer 1
+    CPU->>Device1: Read 5
+    Device2->>CPU: Transfer 2
+    CPU->>Device2: Read 6
+    Device3->>CPU: Transfer 3
+    CPU->>Device3: Read 7
+```
+
+Locations need not be accessed in sequential order to realize a performance benefit. Any access pattern that is relatively prime with the interleaving factor will benefit just as much. 
+> For example in our four-way interleaved system (the number of *ways* is the interleaving factor, generally a power of two due to binary addresses), if we were to access locations
+$0, \ 5, \ 10, \ 15, \ ...$
+or
+$2, \ 9, \ 16, \ 23, \ ...$
+we could still get the full speed-up and have an average cycle time of
+$\frac{t}{4}$
+
+> If we tried to access every second memory location (
+> $3, \ 5, \ 7, \ 9, \ ...$
+> ), we would lose some but not all of the potential speed-up. The accesses would be spread over two of the devices, so our average steady-state cycle time would be 
+> $\frac{t}{2}$
+
+> The worst case scenario would occur if we tried to access every fourth memory location (
+> $0, \ 4, \ 8, \ 12, \ ...$
+> ), or every eighth, etc. (any interval composed of an integer multiple of the interleaving factor) If this occurs, we will continually access the same device, and effective cycle time will revert to 
+> $t$
+> . 
+
+The obvious benefit of a low-order main memory interleave is that, when transferring data to from a single device (ie, CPU) we can achieve a speed-up approaching 
+$n$
+where
+$n$ is the interleaving factor. In the best case (sequential access), an 
+$n-\mathrm{way}$
+low-order interleave using devices with a cycle time of 
+$t$ can give us the same performance as a noninterleaved or high-order interleaved memory built using devices with a cycle time of 
+$\frac{t}{n}$
+(which would likely be more expensive).
+
+> An 8-way low-order interleave of
+> $10 \ \mathrm{ns} \ \mathrm{DRAMs}$
+> could, under ideal conditions, approximate the performance of a much costlier 
+> $1.25 \ \mathrm{ns} \ \mathrm{SRAMs}$
+> .[^3]
+
+[^3]: Even in real computing in which not all accesses are sequential, we can often achieve enough of a performance increase for low-order interleaving to be worthwhile. 
+
+# Sources
+* [Computer Architecture: Fundamentals and Principles of Computer Design, 2nd ed.](https://www.amazon.com/Computer-Architecture-Fundamentals-Principles-Design/dp/1498772714) by Joseph Dumas
