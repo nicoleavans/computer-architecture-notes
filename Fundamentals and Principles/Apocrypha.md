@@ -25,7 +25,7 @@ $A+B$
 . Other notations for it are
 $A \vee B$
 and
-$A \union B$
+$A \cup B$
 , called the union of 
 $A$
 and
