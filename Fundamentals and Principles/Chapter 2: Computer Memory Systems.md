@@ -466,7 +466,7 @@ flip-flops.
 
 | | | 
 | -- | -- |
-| $Q_i$ | represents the $i$th bit of a word. |
+| $Q_i$ | represents the ith bit of a word. |
 | $A_i$ | the corresponding bit of the argument to be searched for, must be compared to the $Q_i$ bit in every word simultaneously. |
 | $K_i$ | key bit |
 | $M_i$ | match bit |
