@@ -506,6 +506,182 @@ The choice between a parallel search using a CAM and a sequential search through
 * CAM gives much better peformance for a particular application (search), but offers little if any assistance to most other computing functions. It is much higher in cost and complexity for the same storage capacity. Its use as a main memory would only be economically justified in systems tailored to very specialized applications. (General-purpose machines can benefit from using a small amount of associative memory in a particular way to improve overall main memory performance.)
 
 ## 2.4 Cache Memory
+Low-order interleaving is one way to try to improve performance, but it has limitations, and performance improvement realized is dependent on precise ordering of memory references. Main memory *caching* is a somewhat more general way of improving main memory performance.
+
+A *cache memory* is an high-speed buffer memory that is logically placed between the CPU and main memory. (It may be physically located on the same integrated circuit as the processor core, nearby in a separate chip on the system board, or both.) Its purpose is to hold data and/or instructions that are most likely to be needed by the CPU in the near future so that they may be accessed as rapidly as possible - ideally, at the full speed of the CPU with no 'wait states', which are usually necessary if data are to be read or written to main memory. The idea is that if the needed data or instructions can usually be found in the faster cache memory, then that is so many times the processor will not have to wait on a slower main memory. The concept of cache goes back at least to the early 1960s, when magnetic core memories (fast for the time) were used as buffers between the CPU and main storage, which may have been a rotating magnetic drum. 
+
+The word *cache* comes from the French verb *cacher*, "to hide". The operation of the cache is transparent to (hidden) from the programmer. The programmer's code (with no effort on their part) runs invisibly from cache, and main memory appears to be faster than it really is. The effort is expended in the design and management of cache rather than in programming. 
+
+### 2.4.1 Locality of Reference
+Typically, due to cost factors, cache is much smaller than main memory. (Modern cache is built from more expensive SRAM rather than DRAM used for main memory.) 
+> A system with 4GB of main memory might have only 4MB (or less) cache. Because cache is 
+> $\frac{1}{1024}$
+> the size of main memory, it may seem to be of neglible benefit. If memory references were uniformly distributed throughout the address space, we would only expect one access in every 1024 to occur in the faster cache memory. In this case, the additional expense of a cache would not be justified.
+
+Computer programs do not access memory at random. Instead, most programs confine the vast majority of their memory references for instructions and data to small areas of memory, at least over a given limited stretch of time. This observed, nearly universal behavior of computer programs exemplifies the principle of *locality of reference*. This principle states that programs tend to access code and data that have recently been accessed, or which are near code or data that have been recently accessed. This explains why a relatively small cache memory can have a large impact on memory system performance. It is fine to have a cache that is 
+$.1\%$
+or less of the size of main memory as long as we make sure it contains the
+$.1\%$
+of information most likely to be used in the near future.
+
+| Aspects | of Locality of Reference |
+| ------- | ------------------------ |
+| *temporal*[^7] locality | if a given memory location is accessed once, there is a high probablility of its being accessed again within a short time |
+| *spatial* locality | locations near a recently accessed location are also likely to be referenced | 
+| *sequential* locality | specific form of spatial locality, tells us that memory locations whose addresses sequentially follow a referenced location are extremely likely to be accessed in the very near future |
+
+[^7]: meaning time-related
+
+Low-order interleaved memory takes advantage of sequential locality, but cache memory is a more general technique that can benefit from all three forms of locality.
+> Code is typically executed sequentially. Use of loops and subroutines (functions, methods, etc.) contributes to temporal locality. Vectors, arrays, strings, tables, stacks, queues, and other common data structures are almost always stored in contiguous memory locations and referenced with loops. Different programs and data sets exhibit different types and amounts of locality. It is this property of locality that makes cache memory improve performance of main memory. 
+
+### 2.4.2 Hits, Misses, and Performance
+In the hypothetical case of 4GB main memory and 4MB cache, the cache is less than
+$.1\%$
+of the size of main memory, yet for most programs the needed data may be found in the cache memory 
+$90\%$
+or more of the time.
+
+| term | definition |
+| ---- | ---------- |
+| *hit ratio* | the probability of avoiding a main memory access by finding the desired information |
+| *miss ratio* | the fraction of memory references not satisfied by cache |
+| *cache hit* | any reference to a location that is currently resident in cache |
+| *cache miss* | any reference to a location that is not cached. |
+
+Hit Ratio Formula:
+
+$$
+\mathrm{hit \ ratio} = p_h = \frac{\mathrm{number \ of \ hits}}{\mathrm{total \ number \ of \ main \ memory \ accesses}}
+$$
+
+or, equivalently,
+
+$$
+p_h = \frac{\mathrm{number \ of \ hits}}{(\mathrm{number \ of \ hits \ + \ \mathrm{number \ of \ misses}})}
+$$
+
+The hit ratio may be expressed as a decimal in the range of 0 to 1, or as a percentage.
+> If a given program required a total of 
+> $142,000$
+> memory accesses for the code and data but (due to locality) 
+> $129,000$
+> were hits and only
+> $13,000$
+> were misses, then the hit ratio would be:
+
+$$
+p_h = \frac{129,000}{(129,000 + 13,000)} = \frac{129,000}{142,000} = .9085 = 90.85 \%
+$$
+
+We can correspondingly define the *miss ratio* as:
+
+$$
+1 - p_h
+$$
+
+The hit ratio is never really a constant. It will vary from system to system depending on the amount of cache present and the details of its design. It will also vary on the same system depending on the current program running and the properties of the data set it is working with. Even within a given run, hit ratio is a dynamic parameter as the contents of the cache change over time.
+> In our example, most of the 
+> $13,000$
+> misses probably occurred early in the run before the cache filled up with useful data and instructions, so the initial hit ratio was probably quite low. Later on, with a full cache, the hit ratio may have been much higher than 
+> $.9085$
+> . (It still would vary somewhat as different routines containing different looops and other control structures were encountered.) The overall value computed was the average hit ratio over some span of time.
+
+With a high hit ratio (close to
+$1.0$
+or
+$100\%$
+), dramatic gains in performance are possible. The speed ratio between cache and main memory may easily be 
+$10:1$ 
+or greater. Cache ideally operates at the full speed of the CPU (single clock cycle access time), with main memory taking much longer.
+>Let us say that in the preceding example with
+$p_h = .9085$
+, the main memory access time is 
+$10 \ \mathrm{ns}$
+(a 
+$20:1$
+speed ratio). What is the effective time required to access memory, on average, over all references? We can compute this simply using the following formula for a weighted average:
+
+$$
+t_{a \ \mathrm{effective}} = t_{a \ \mathrm{cache}} \times p_h + t_{a \ \mathrm{main}} \times (1-p_h)
+$$
+
+| term | value |
+| ---- | ----- |
+| $\mathrm{speed \ ratio}$ | $\frac{1}{20}$ |
+| $\mathrm{main \ memory \ access \ time}$ | $10 \ \mathrm{ns}$ |
+| $\mathrm{speed \ ratio} \times \mathrm{main \ memory \ access \ time} = t_{a \ \mathrm{cache}}$ | $.5 \ \mathrm{ns}$ |
+| $p_h \ (\mathrm{hit \ ratio})$ | $.9085$ |
+
+$$
+(.5 \ \mathrm{ns})(.9085) + (10 \ \mathrm{ns})(.0915) = .45425 \ \mathrm{ns} \ + .915 \ \mathrm{ns}  = 1.36925 \ \mathrm{ns}
+$$
+
+> The cache itself is 20x the speed of main memory. The combined system with cache and main memory is about 7.3 times as fast as the main memory alone. This is a conservative example, it is not uncommon for cache hit ratios to be in the range of 97-98% in practice. A hit ratio of 
+> $.98$
+> would have brought the access time down to just
+> $.69 \ \mathrm{ns}$
+> or aproximately 14.5x the speed of main memory. By spending a relatively small amount on 4MB of fast memory, we have achieved nearly as much improvement in performance as we would have by populating the entire main memory space (4GB) with the faster devices, but at a fraction of the cost.
+
+It's not quite as simple as plugging extra SRAM devices in on the CPU-memory bus and expecting them to automatically choose the right information to keep while discarding items that won't be needed soon. We need circuitry to decide things like:
+* which main memory locations to load into cache
+* where to load them into cache
+* what information already in cache must be displaced in order to make room for new information
+
+The cache control circuitry must be able to:
+* handle issues such as write to locations that are cacheable
+* detect whether a location that is written is in cache
+* update that location
+* make sure the corresponding main memory location is updated
+
+Though programs normally interact with memory in the form of reading or writing individual bytes or words, transfers of data or instructions into or out of cache typically are done with less granularity. Most caches are designed such that a block of data, rather than a single byte or word, is loaded or displaced at a time. *Refill line* or *line* is the unit of information that is moved between main memory and cache.
+>Depending on system characteristics, line size may range from just a few (8 or 16) bytes to a fairly substantial chunk of memory, perhaps as large as 256 bytes.
+
+Cache may be partitioned into refill lines instead of individual bytes or words for several reasons:
+1. Given the typical size and performance characteristics of buses between the CPU and main memory, it is usually more efficient to perform a small number of large transfers than a large number of small ones.
+2. Because of the locality principle, if a program needs a given byte or word now, it will probably need the surrounding ones soon, so it makes sense to fetch them all from main memory at once.
+3. It is generally less expensive to build a cache with a small number of large entries than vice versa. (especially true of fully associative cache organization)
+
+Thus, though line size can equal one byte or one word, it is usually larger and virtually always an integer power of 2.[^8]
+
+[^8]: Like the size of most memories with binary addresses.
+
+### 2.4.3 Mapping Strategies
+The most notable job of the cache controller is the task of *mapping* the main memory locations into cache locations. The system needs to be able to detect a hit vs a miss to quickly determine whether or not a given main memory location is cached. Three strategies are widely used for performing this mapping.
+
+#### 2.4.3.1 Associative Mapping
+Associative mapping, sometimes called fully associative mapping, is the most flexible mapping scheme. It takes advantage of the properties of associative memories (CAM). Due to its flexibility, all else being equal, it will have the highest hit ratio and thus improve performance more than other mapping strategies. Due to its reliance on CAM, it is the most expensive type to build.
+
+Each entry, or refill line, is composed of two parts: 
+* an address *tag*, the information to be matched on associatively
+* one or more data or instruction bytes/words that are a copy of the correspondingly addressed line in main memory
+
+If a line is an individual memory location, the tag is the complete memory address of that location. If, more likely, a line contains several memory locations, the tag consists of the high-order address bits that are common to all locations in that line. 
+> If the byte-addressable main memory uses 
+> $32 \ \mathrm{bit}$
+> addresses and each refill line contains
+> $2^6 = 64 \ \mathrm{bytes}$
+> , then the associative tags will be the upper
+> $(32-6) = 26$
+> address bits.
+
+Layout of Fully Associative Cache:
+
+<p align="center">
+<img src="https://i.imgur.com/dzt4DYh.png" width="600">
+</p>
+
+Note that the tag storage is all CAM, but the cached information that goes with each tag is not needed in the matching process, so it can be stored in SRAM. Each tag is logically associated with one and only one line of information stored in the SRAM.
+
+When a main memory address is referenced, it is quick and easy to determine whether it is a cache hit or cache miss. The upper bits of the main memory address are checked against all the cache tags simultaneously. We never cache the same main memory location in more than one place, so there will be either one match or none. If no tag matches the supplied tag, the access is a miss and main memory must be referenced.
+> We will then place this line into the cache, displacing another line if necessary, so that subsequent references to it will result in hits.
+
+If one tag is a match, then a hit has occurred, and the lower main memory address bits will identify which byte or word within the line is to be accessed. In this case the main memory access can be omitted.
+
+The check for a hit is very fast because all the tags are checked at once. This cache organization is the most flexible because there are no limitations on where in the cache any given information from main memory may be mapped. Any line from main memory may reside in any line of cache. Thus, any combination of main memory contents can reside in cache at any time, limited only by the size of the cache. Due to this flexibility, hit ratios tend to be high for a given cache size. The need for a CAM to hold the tags makes this an expensive strategy.
+
+#### 2.4.3.2 Direct Mapping
+#### 2.4.3.3 Set-Associative Mapping
 
 # Sources
 * [Computer Architecture: Fundamentals and Principles of Computer Design, 2nd ed.](https://www.amazon.com/Computer-Architecture-Fundamentals-Principles-Design/dp/1498772714) by Joseph Dumas
