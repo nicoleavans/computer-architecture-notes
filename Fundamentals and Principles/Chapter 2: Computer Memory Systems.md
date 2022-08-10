@@ -609,10 +609,10 @@ $$
 | term | value |
 | ---- | ----- |
 | $\mathrm{speed \ ratio}$ | $\frac{1}{20}$ |
-| $\mathrm{main \ memory \ access \ time}$ | $10 \ \mathrm{ns}$ |
+| $\mathrm{main \ memory \ access \ time} = t_{a \ \mathrm{main}}$ | $10 \ \mathrm{ns}$ |
 | $\mathrm{speed \ ratio} \times \mathrm{main \ memory \ access \ time} = t_{a \ \mathrm{cache}}$ | $.5 \ \mathrm{ns}$ |
 | $p_h \ (\mathrm{hit \ ratio})$ | $.9085$ |
-| $1 - p_h \  \mathrm{(miss \ ratio)}$ | $.915$ |
+| $1 - p_h \  \mathrm{(miss \ ratio)}$ | $.0915$ |
 
 $$
 (.5 \ \mathrm{ns})(.9085) + (10 \ \mathrm{ns})(.0915) = .45425 \ \mathrm{ns} \ + .915 \ \mathrm{ns}  = 1.36925 \ \mathrm{ns}
