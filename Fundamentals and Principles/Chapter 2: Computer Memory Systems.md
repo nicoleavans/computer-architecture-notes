@@ -405,6 +405,107 @@ In a sense, sequential access memories are also addressed, but in a different wa
 Because of the uniformity of addressing and access times, RAMs can easily be interfaced in a synchronous or asynchronous fashion, as the designer prefers. SAMs, practically speaking, can only use an asynchronous interface because synchronous transfers of data would always have to allow for the worst case access time (which may be very long). Thus, disk and tape drives never interface directly to the CPU, but rather connect indirectly through a drive controller. Because of their simplicity and flexibility in interfacing with a (synchronous) CPU, RAMs are preferred by system designers and are essential for main memory. Yet, the advantages of magnetic and optical disk memories in terms of cost, storage density, and nonvolatility ensure that SAMs will be used (at least in secondary storage applications) for some time to come.
 
 ### 2.3.3 Associative Memories
+*Associative memories*, or *content addressable memory* (CAM), are radically different from the two discussed prior. Both random access and sequential access memories identify stored information by its location, either in an absolute or relative sense. Associative memories identify stored information by the actual content that is stored, or some subset of it. Rather than provide an absolute or relative address for a memory location for a read/write, we specify the contents we are looking for, and see if the memory system has anything matching that. 
+
+If we know the contents of an 8-bit memory location are supposed to be
+$01101101$
+, it doesn't do much good just to verify that. The real power and utility of an associative memory is the ability to match on a selected part of the contents, which we know, in order to obtain related information we seek. 
+> We might find it more useful to ask the memory whether it contains any entries with bit
+> $0$
+> equal to 
+> $1$
+> and bit
+> $3$
+> equal to
+> $0$
+> , or to provide us with the first entry that starts with the bit pattern
+> $011$
+> or some other partial contents.
+
+This is directly analogous to a software database application that allows us to look up a customer's information if we know their name or phone number. An associative memory does the same thing in hardware and is thus much faster than a software search. 
+
+In making an associative query of a memory system, we need to identify three things:
+1. *argument*, or search term - the word we are trying to match memory contents against
+2. *mask* or *key* that identifies which bit positions of the argument to check for a match on and which to ignore
+3. some sort of control over conflict resolution, or at least a way to detect conflict (multiple matches)
+
+Any associative search may produce no matches, a unique match, or several matches. Knowing which of these events has occurred is often significant. If we want to update the stored information, it is important to detect the lack of a match so the write can be aborted, or multiple matches to deterine which location(s) to update.
+
+Block Diagram of Associative Array:
+
+<p align="center">
+<img src="https://i.imgur.com/AjM11hd.png" width="400">
+</p>
+
+| component | designation | description |
+| --------- | ----------- | ----------- |
+| *argument register* | A | holds the item to be searched for |
+| *key register* | K | bits equal to 1 indicate positions to check for a match, 0s denote postions to be ignored |
+| *match register* | M | stores search results - one bit for each word in the associative array. if the logical OR of all the match register bits is 0, no match was found. if it is 1, at least one match was found. examining the individual bits of M allows us to determine how many matches occured and in what location(s) |
+
+To construct the associative array itself, the memory cells could be constructed of capacitors (such as DRAM), flip-flops (such as SRAM), or some other technology. Because the main purpose of associative memory is to be able to perform a high-speed search of stored information, we will assume that each bit of data is stored in a D flip-flop or similar device. The mechanism for reading and writing these bits is the same as it would be for any static RAM.
+> To store a bit, we place it on the D input and clock the device. To read a stored bit, we look at the state of the Q output.
+
+Additional logic is required in order to perform the search and check for matches. This logic will decrease the density of the memory cells, increase power consumption, and add considerably to the cost per bit of fabricating the memory (but it may be worth it in terms of speeding up the search). 
+
+Associative Memory Cell Logic:
+
+<p align="center">
+<img src="https://i.imgur.com/F0HxW3O.png" width="600">
+</p>
+
+This diagram shows logic that could be used for an individual associative memory cell. To store all 
+$n$
+bits of a word will require
+$n$
+flip-flops, and an associative array with 
+$2^m$
+words will require
+$2^m \times n $
+flip-flops.
+
+| | | 
+| -- | -- |
+| $Q_i$ | represents the $i$th bit of a word. |
+| $A_i$ | the corresponding bit of the argument to be searched for, must be compared to the $Q_i$ bit in every word simultaneously. |
+| $K_i$ | key bit |
+| $M_i$ | match bit |
+
+The equivalence gate (Exclusive-NOR or [XNOR](https://github.com/nicoleavans/computer-architecture-notes/blob/main/Fundamentals%20and%20Principles/Apocrypha.md)) outputs a logic
+$1$
+if the stored bit matches the corresponding bit of the argument. This gates output is logically ORed with the inverse of the corresponding key bit
+$K_i$
+to indicate a match
+$m_i$
+in this bit position. 
+
+This is because, if
+$K_i = 0$
+, this bit position is a "don't care" for the purposes of matching, so we don't want a mismatch between
+$A_i$
+and
+$Q_i$
+to disqualify the word from matching. Bit 
+$m_i$
+will be
+$1$
+if either
+$A_i = Q_i$
+or
+$K_i = 0$
+. All of the individual bit position match bits
+$m_i$
+for the word can then be ANDed together to detect a match between the argument and that ord and generate the corresponding bit to be stored in the match register M. If at least one bit of M is
+$1$
+, the selected bits (according to the key) of the argument are contained in memory.
+
+The advantage of going to the effort and expense of an associative memory is search speed. All the bits of all the words in the memory are compared to the argument bits simultaneously (in parallel). Rather than perform a search sequentially in software by examining one word after another, we have effectively built the search function into the hardware. Finding a match in any word; whether the first, last, or anywhere in between (or even multiple words), takes the same brief amount of time. Software search engines take a variable and generally much longer time to complete. 
+
+The choice between a parallel search using a CAM and a sequential search through the contents of RAM boils down to a trade-off of competing criteria. 
+* RAM is much more information dense, cheaper, and less complex to build. RAM is useful for a much wider range of applications, but takes a long time to search.
+* CAM gives much better peformance for a particular application (search), but offers little if any assistance to most other computing functions. It is much higher in cost and complexity for the same storage capacity. Its use as a main memory would only be economically justified in systems tailored to very specialized applications. (General-purpose machines can benefit from using a small amount of associative memory in a particular way to improve overall main memory performance.)
+
+## 2.4 Cache Memory
 
 # Sources
 * [Computer Architecture: Fundamentals and Principles of Computer Design, 2nd ed.](https://www.amazon.com/Computer-Architecture-Fundamentals-Principles-Design/dp/1498772714) by Joseph Dumas
