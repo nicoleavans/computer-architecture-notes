@@ -1061,7 +1061,7 @@ In a system using segmentation with paging, virtual addresses are divided into a
 
 The upper part of the address is considered the segment number and is used to index into a segment table. From this table, the system obtains the starting address of a page table. The next set of bits, the page number, is used to index into the page table for that segment. The page table entry contains the same information and is used in the same way it would be used in a purely paged memory management scheme. In particular, the page frame number obtained from the page table is concatenated with the offset within the page to form the physical main memory address of the requested information. Thus, at the hardware level, this scheme behaves like a paged system. To the software, it resembles a segmented system.
 
-### The MMU and TLB
+### 2.5.6 The MMU and TLB
 Page and segment tables can be quite large and have historically been maintained in main memory. They're maintained by the OS, not by user code, so they must be in an area of main memory off limits to user programs. The MMU, which may be on a separate integrated circuit but in modern systems is usually fabricated on the same silicon chip as the CPU, typically contains a page or segment table base register that points to the beginning address of the top-level table for a given process. It thus serves as a starting point for the indexing of all tables in main memory. 
 
 The problem with doing a 'table walk' (traversing at least one and possibly several levels of lookup tables for virtual-to-physical address translation) through main memory is that it's slow. The program needs to reference memory which takes a certain cycle time
