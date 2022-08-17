@@ -21,27 +21,27 @@ The most popular types of memory are semiconductor chips (integrated circuits) a
 
 *Semiconductor memories* in general possess the advantage of speed. This is why the main memory space of virtually all modern computers is populated exclusively with semiconductor devices, and magnetic and optical devices are relegated to the role of secondary or tertiary (backup) storage. The CPU is built using semiconductor technology, and only a similar memory technology can keep up with processor speeds. In fact, not all semiconductor memories can operate at the full speed of most modern CPUs. As such, the vast majority of semiconductor main memory systems have an associated cache memory made up of the very fastest memory devices.
 
-The semiconductor memory technology with the highest information density is *dynamic random access memory* (DRAM). Due to that, because it is read/write memory, and because it has a relatively low cost per gigabyte, DRAM is used for the bulk of main memory in most computer systems. A DRAM device consists of a large array of capacitors (electrical devices capable of storing a charge). A charged capacitor is interpreted as storing a binary 1, and an uncharged capacitor indicates binary 0. Unfortunately, the capacitors in a DRAM device will discharge, or leak, over time; thus, to be able to continue to distinguish 1s from 0s and avoid losing stored informatoin, the information must periodially be read and then rewritten. This process is called dynamic RAM *refresh*. It adds to the complexity of the memory control circuitry, but in general this is a worthwile trade-off due to the low cost and high storage density of DRAM.
+The semiconductor memory technology with the highest information density is *dynamic random access memory* (DRAM). Due to that, because it is read/write memory, and because it has a relatively low cost per gigabyte, DRAM is used for the bulk of main memory in most computer systems. A DRAM device consists of a large array of capacitors (electrical devices capable of storing a charge). A charged capacitor is interpreted as storing a binary 1, and an uncharged capacitor indicates binary 0. Unfortunately, the capacitors in a DRAM device will discharge, or leak, over time; thus, to be able to continue to distinguish 1s from 0s and avoid losing stored informatoin, the information must periodially be read and then rewritten. This process is called dynamic RAM *refresh*. It adds to the complexity of the memory control circuitry, but in general this is a worthwhile trade-off due to the low cost and high storage density of DRAM.
 
 Given the desired main memory size in most systems, compared to the amount of DRAM that can be fabricated on a single integrated circuit (IC), DRAM is not usually sold as individual chips. Rather, several ICs are packaged together on a small printed circuit board module that plugs into the system board, or motherboard. These modules come in various forms, the most popular of which are known as *dual inline memory modules* (DIMMs) and *small outline dual inline memory modules* (SODIMMs). Some of these modules are faster (lower access times and/or higher synchronous clock frequencies) than others, and different types plug into different size sockets (thus it is important to buy the correct type), but they all use DRAM devices as the basic storage medium. 
 
-Although dynamic RAM offers relatively low cost and high density storage, in general it is not capable of keeping up with the full speed of modern micropricessors. Capacitors can be made very small and are easy to fabricate on silicon, but they take time to charge and discharge; this affects the access time for the device. The highest-speed semiconductor read/write memory technology is referred to as *static random access memory* (SRAM). In an SRAM, the binary information is stored as the states of latches or flip-flops rather than capacitors. (In other words, SRAM is built similarly to the storage registers inside a CPU.) SRAM is less dense than DRAM (it takes more space to build a static RAM cell than a capacitor) and therefore more expensive per amount of storage. SRAM, like DRAM, is a volatile technology that requires continous application of electrical power to maintain its contents. However, because the bits are statically stored in latches, SRAM does not require periodic refresh. Contents are maintained indefinitely as long as power is applied. Compared to DRAM, SRAM circuitry requires more power for read/write oepration, but some SRAMs (like the Complementary Metal Oxide Semiconductor (CMOS) static RAM devices sometimes used to retain system settings) require very little current in standby mode and thus can maintain stored information for years under battery power. 
+Although dynamic RAM offers relatively low cost and high density storage, in general it is not capable of keeping up with the full speed of modern microprocessors. Capacitors can be made very small and are easy to fabricate on silicon, but they take time to charge and discharge; this affects the access time for the device. The highest-speed semiconductor read/write memory technology is referred to as *static random access memory* (SRAM). In an SRAM, the binary information is stored as the states of latches or flip-flops rather than capacitors. (In other words, SRAM is built similarly to the storage registers inside a CPU.) SRAM is less dense than DRAM (it takes more space to build a static RAM cell than a capacitor) and therefore more expensive per amount of storage. SRAM, like DRAM, is a volatile technology that requires continous application of electrical power to maintain its contents. However, because the bits are statically stored in latches, SRAM does not require periodic refresh. Contents are maintained indefinitely as long as power is applied. Compared to DRAM, SRAM circuitry requires more power for read/write operation, but some SRAMs (like the Complementary Metal Oxide Semiconductor (CMOS) static RAM devices sometimes used to retain system settings) require very little current in standby mode and thus can maintain stored information for years under battery power. 
 
 Semiconductor read-only memories (ROMs), including *programmable read-only memories* (PROMs) and *erasable/programmable read-only memories* (EPROMs), are roughly comparable to SRAM in cost and density though they generally operate at DRAM speeds or slower. They are nonvolatile but have the major limitation of not being writable (EPROMs can be reprogrammed in a separate circuit after erasure with ultraviolet light). As such, ROMs are only useful in limited applications, such as single-purpose embedded systems, video game cartridges (or disks), and the basic input/output system (BIOS) that contains the bootstrap code and low-level input/output I/O routines for most typical computer systems.
 
-Semiconductor "read-mostly" memories include *electrically erasable programmable read-only memories* (EEPROMs)and their technological descendants, *flash memories*. These memories are nonvolatile, but (unlike ROMs) they are rewritable in-circuit. Writes, however, can take significanlty longer than reads to perform and in some cases must be done as 'block' writes rather than individual memory locations. Also, these devices are more expensive than most other semiconductor memories and can only be rewritten a limited number (usually a few tens or hundreds of thousands) of times, so they are not suitable for populating the entire main memory space of a computer. Instead, read-mostly memories are typically used for special purpose applications, such as digital cameras, portable thumb drives, hybrid drives, tablets, and smartphones.
+Semiconductor "read-mostly" memories include *electrically erasable programmable read-only memories* (EEPROMs) and their technological descendants, *flash memories*. These memories are nonvolatile, but (unlike ROMs) they are rewritable in-circuit. Writes, however, can take significanlty longer than reads to perform and in some cases must be done as 'block' writes rather than individual memory locations. Also, these devices are more expensive than most other semiconductor memories and can only be rewritten a limited number (usually a few tens or hundreds of thousands) of times, so they are not suitable for populating the entire main memory space of a computer. Instead, read-mostly memories are typically used for special purpose applications, such as digital cameras, portable thumb drives, hybrid drives, tablets, and smartphones.
 
 *Magnetic memories* have been in use much longer than semiconductor memories, almost as long as there have been electronic computers. Mainframe computers of the 1950s often used rotating magnetic drums for storage. A few years later, magnetic *core memory* became the standard technology for main memory and remained so until it was replaced by integrated circuit RAM and ROM in the 1970s. Magnetic core memory, like all magnetic memories, offered the advantage of nonvolatility (except in the presence of a strong external magnetic field). Access times were on the order of microseconds, so this technology fell out of favor when faster semiconductor memories became cost-competitive. Another related (but slower) technology, *magnetic bubble memory*, was once thought ideal for long-term storage applications but could not compete with inexpensive disk drives, battery-backed SRAMs, and EEPROMs; it eventually died out. Ferroelectric RAM (FeRAM), another descendant of core memory, is still in production but has never caught on widely due to its much lower information storage density as compared with DRAM and flash memory. 
 
 Magnetic storage in most modern computers is in the form of disk and tape drives. Access times for magnetic disks are on the order of milliseconds or longer, so this technology is useful only for secondary storage, not main memory. Tape drives are even slower due to the frequent necessity of traversing a long physical distance down the tape to access requested information. The chief advantages of magnetic memories, besides nonvolatility, are very low cost per gigabyte of storage and extremely high information density (a hard drive can store a terabyte or more of data in a few cubic inches of space). Removable disks and tape cartridges (and some hard drives) also offer the advantage of portability.
 
-Although magnetic memories are currently relegated to secondary storage applications, *magnetic RAM* (MRAM) is a developing memory technology that has the potential to eventually replace DRAM in main memory applications. MRAM operates on the principle of magnetoresistance, where an electric current is ued to change the magnetic properties of a solid-state material. Pieces of this material are sandwiched between two perpendicular layers of wires. A bit is stored at each point where one wire crosses over another. To write a bit, a current is passed through the wires; changing the polarity of the magnet changes the electrical resistance of the sandwiched material. Reading a bit is accomplished by passing a current through wires connected to a sandwich and detecting its resistance; a high resistance is interpreted as binary 1 and a low resistance as binary 0.
+Although magnetic memories are currently relegated to secondary storage applications, *magnetic RAM* (MRAM) is a developing memory technology that has the potential to eventually replace DRAM in main memory applications. MRAM operates on the principle of magnetoresistance, where an electric current is used to change the magnetic properties of a solid-state material. Pieces of this material are sandwiched between two perpendicular layers of wires. A bit is stored at each point where one wire crosses over another. To write a bit, a current is passed through the wires; changing the polarity of the magnet changes the electrical resistance of the sandwiched material. Reading a bit is accomplished by passing a current through wires connected to a sandwich and detecting its resistance; a high resistance is interpreted as binary 1 and a low resistance as binary 0.
 
 Because the bits are stored as magnetic fields rather than electrical charge, MRAM (like other magnetic memories) is nonvolatile. If it can achieve denisty, speed, and cost comparable to DRAM, MRAM will enable the devopment of "instant-on" computers that retain the operating system, applications, and data in main memory even when the system is turned off.[^1]
 
 [^1]: Several companies, including IBM, Honeywell, Everspin, and Cypress Semiconductor, have produced MRAM devices in limited quantities. However, perhaps due to continued high demand for DRAM and flash memory, manufacturers have been hesitant to commit resources (money and fabrication plants) to high-volume production of MRAM chips. If and when they are mass produced, MRAM devices could largely replace DRAM in computer main memory applications within a few years.
 
-*Optical memories* are becoming more and more common, all the way down to low-end computers. Even inexpensive personal computers often have an optical drive that can at least read and often write various tpes of optical discs including *compact disk* CDs, *digital versatile disks* DVDs, and/or *Blu-ray disks* BDs. Depneding on type, an optical disk can store anywhere from several hundred megabytes of data (CD) to as much as 50 GB (BD) at a typical price of less than \$1 
+*Optical memories* are becoming more and more common, all the way down to low-end computers. Even inexpensive personal computers often have an optical drive that can at least read and often write various types of optical discs including *compact disk* CDs, *digital versatile disks* DVDs, and/or *Blu-ray disks* BDs. Depending on type, an optical disk can store anywhere from several hundred megabytes of data (CD) to as much as 50 GB (BD) at a typical price of less than \$1 
 each. In addition to their low cost, optical disks offer most of the same advantages (portability, nonvolatility, and high density) of magnetic disks and also are immune to erasure by magnetic fields. They are much too slow to be used for main memory, however, and the writing process takes considerably longer than writing to a magnetic disk. Their most common uses are for distribution of software and digitally recorded media, and as an inexpensive backup/archival data storage.
 
 ### 2.1.3 Hierarchical Memory Systems
@@ -160,7 +160,7 @@ High-order memory interleaving is the default organization for most main memory 
 
 The difference from high-order interleaving is in how we map the memory addresses across the different devices or groups of devices. Returning to the 
 $64\mathrm{KB}$
-memory example, instead of connecting the low-order 14 address bits from the CPU to all four devices in common, we odonnect the higher-order 14 bits; and rather than connnect the high-order two address bits to the external decoder, we generate the four chip select inputs by decoding the two lowest-order address bits. The decoder outputs are still mutually exclusive, so still only one of the four memory devices will be enabled at a time. So what is the point?
+memory example, instead of connecting the low-order 14 address bits from the CPU to all four devices in common, we connect the higher-order 14 bits; and rather than connect the high-order two address bits to the external decoder, we generate the four chip select inputs by decoding the two lowest-order address bits. The decoder outputs are still mutually exclusive, so still only one of the four memory devices will be enabled at a time. So what is the point?
 
 <p align="center">
 <img src="https://i.imgur.com/FOlc78M.png" width="500">
@@ -184,7 +184,7 @@ $01 \ (1, \ 5, \ 9, \ 13, \ ..., \ 65,533)$
 $2$
 and
 $3$
-, respectively, contail all the locations with addresses ending in binary
+, respectively, contain all the locations with addresses ending in binary
 $10$
 and 
 $11$
@@ -519,9 +519,9 @@ Typically, due to cost factors, cache is much smaller than main memory. (Modern 
 > the size of main memory, it may seem to be of neglible benefit. If memory references were uniformly distributed throughout the address space, we would only expect one access in every 1024 to occur in the faster cache memory. In this case, the additional expense of a cache would not be justified.
 
 Computer programs do not access memory at random. Instead, most programs confine the vast majority of their memory references for instructions and data to small areas of memory, at least over a given limited stretch of time. This observed, nearly universal behavior of computer programs exemplifies the principle of *locality of reference*. This principle states that programs tend to access code and data that have recently been accessed, or which are near code or data that have been recently accessed. This explains why a relatively small cache memory can have a large impact on memory system performance. It is fine to have a cache that is 
-$.1\%$
+$.1 \%$
 or less of the size of main memory as long as we make sure it contains the
-$.1\%$
+$.1 \%$
 of information most likely to be used in the near future.
 
 | Aspects | of Locality of Reference |
@@ -537,10 +537,10 @@ Low-order interleaved memory takes advantage of sequential locality, but cache m
 
 ### 2.4.2 Hits, Misses, and Performance
 In the hypothetical case of 4GB main memory and 4MB cache, the cache is less than
-$.1\%$
+$.1 \%$
 of the size of main memory, yet for most programs the needed data may be found in the cache memory 
-$90\%$
-or more of the time.
+$90 \%$
+ or more of the time.
 
 | term | definition |
 | ---- | ---------- |
@@ -761,7 +761,7 @@ That tag (and that tag only) is checked against the tag bits of the supplied add
 > $64$
 > byte block including the referenced location) because, by the principle of locality of reference, those memory contents would likely be needed in the near future.
 
-The key to cost savings using direct mapping is that no associative memory is required. Both the tags and data are stored in a fast, but normal, SRAM. (More expensive than DRAM but significantly cheaper than CAM.) Only one small comparator circuit is needed to check a single tag for a match. The trade off is a potentially lower hit ratio and thus lower overlll system performance given the same cache size. 
+The key to cost savings using direct mapping is that no associative memory is required. Both the tags and data are stored in a fast, but normal, SRAM. (More expensive than DRAM but significantly cheaper than CAM.) Only one small comparator circuit is needed to check a single tag for a match. The trade off is a potentially lower hit ratio and thus lower overall system performance given the same cache size. 
 > Suppose the program was processing two arrays: one stored beginning at location
 > $004001801_{16}$
 > , including the location accessed in the example, and another stored beginning at location 
@@ -865,7 +865,7 @@ $0$
 , then this line has only been read, and cache control hardware will know a new line can simply overwrite existing information. 
 * If this bit is
 $1$
-, then that line (or at least any modified locations within it) must be copied or 'written-back' to main memory before it is overwritten with new inofrmation. If this were not done, it would be as if the write never occurred.
+, then that line (or at least any modified locations within it) must be copied or 'written-back' to main memory before it is overwritten with new information. If this were not done, it would be as if the write never occurred.
 
 [^10]: A cache location that has been written to may be called a 'dirty cell' or 'dirty word'. 
 
@@ -873,7 +873,7 @@ Using the write-back approach will generally maximize performance because write 
 > If we write to a cached location 10 times, only 1 write to main memory is needed. 9 of the 10 write hits took no more time than read hits.
 
 With this approach, data in main memory can be 'stale'. We are not guaranteed that what is in main memory matches the most recent activity of the CPU. IF other devices access memory, this must be detected and dealt with. The logic required to do write-backs is more complex than that required for write-throughs. We not only need an extra bit added to every tag, we need logic to examine these bits and initiate a line write-back operation if needed. To perform a write-back, the controller must either:
-* hold up the read operatino for filling the new line until the write-back is complete
+* hold up the read operation for filling the new line until the write-back is complete
 * buffer the displaced information in a temporary locatoin and write it back after the line fill is done
 
 ### 2.4.5 Cache Replacement Strategies
@@ -1086,11 +1086,11 @@ $4$
 KB or more, and segments may be even larger. At least partially due to this size discrepancy, segment or page faults tend to be rarer than cache misses. 
 
 Cache hit ratios are typically in the range of 
-$90$
+$90 \%$
 to 
-$98\%$
+$98 \%$
 , while referenced segments or pages are found in main memory well in excess of 
-$99.9\%$
+$99.9 \%$
 of the time. The time penalty for a page or segment fault is much greater than that incurred by a cache miss. Often only a few to a few dozen clock cycles (wait states) may be required to access main memory on a cache miss, during which time a CPU can simply idle and then immediately resume executing instructions. At most, a few nanoseconds are wasted. A segment or page fault requires one or more disk accesses, which may take several milliseconds each, plus the overhead of a task switch in order to run another process while the faulting one waits. Because of the speed required at the uppermost levels of the hierarchy, cache control is done solely in hardware. Management of virtual memory is done partly in hardware by the MMU and partly in software by the OS. 
 
 The only purpose of cache is to increase the apparent speed of main memory. Virtual memory has several functions. The most important is to provide each program with the appearance of a large main memory for its exclusive use. Secondary goals include:
@@ -1106,7 +1106,7 @@ The first and most fundamental cache design choice in a system with virtual memo
 
 The main advantage of virtually addressed cache is speed. Because the cache controller does not have to wait on the MMU to translate the supplied address before checking for a hit, the needed information can be accessed more quickly when a hit occurs. Misses can likewise be detected and the required main memory access started almost immediately. The address translation in the MMU can proceed in parallel with the cache controller's determination of hit vs miss, with translation being aborted in the event of a hit. Another advantage is consistency of cache behavior. Because cache access patterns depend on the virtual addresses used by the program and because these are the same from one run to the next, identical runs will result in identical cache usage patterns and thus identical hit ratios. 
 
-Physically addressed caches may cause programs to exhibit performance variations between otherwise identical runs. This is because the OS may load the same program at different physical addresses depending on extraneous factors, such as other programs already in memory. This means the cache tags and indices for different runs may be different and may lead to a different pattern of hits, misses, and line replacements. In a set-associative or especially a direct-mapped cache, different addresses can result in different patterns of contentino and significantly affect the hit ratio. In addition to variations in performance, physically addressed caches are not quite as fast in the best case because the address translation must be completed before the cache lookup can begin. 
+Physically addressed caches may cause programs to exhibit performance variations between otherwise identical runs. This is because the OS may load the same program at different physical addresses depending on extraneous factors, such as other programs already in memory. This means the cache tags and indices for different runs may be different and may lead to a different pattern of hits, misses, and line replacements. In a set-associative or especially a direct-mapped cache, different addresses can result in different patterns of contention and significantly affect the hit ratio. In addition to variations in performance, physically addressed caches are not quite as fast in the best case because the address translation must be completed before the cache lookup can begin. 
 
 Despite these disadvantges, sometimes physically addressed cache is preferable, or necessary. Because all the cache tags and indices are based on a single, physical address space rather than a virtual address space for each process, information can be left in a pyiscally addressed cache when a task switch occurs. In a virtually addressed cache, we would have to worry about address
 $n$
