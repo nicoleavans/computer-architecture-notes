@@ -23,16 +23,16 @@
 | (*lower is better*) | (*higher is better*) | (*higher is better*) | (*non-volatile is better*) | (*both is usually better*) | (*lower is better*) | (*more durable is better*) | (*more portable is usually better*) | 
 | floppy disk |  SRAM  | DRAM | hard disk (nonvolatile) | DRAM (both) |    |    | floppy disk |   
 | hard disk |  DRAM  | SRAM | floppy disk (nonvolatile)   | SRAM (both) |    |    |  CD-R  |
-|  CD-R  |  RAM  |  flash  |  flash (nonvolatile)  |  DVD-RW (both)  |    |    |  CD-RW  |
-|  CD-RW  |    |  hard disk  |  CD-R  | CD-RW (both)   |    |    |  DVD-R  |
-|  DVD-R  |    | floppy disk   |  CD-RW  | RAM (both)   |    |    |  DVD-RW  |
-|  DVD-RW  |    |    |  DVD-R  |    |    |    |    |
-|  flash  |  hard disk  |    |  DVD-RW  |    |    |    |    |
-| RAM   |  floppy disk  |    |    | flash (read-mostly)   |    |    |    |
-|  DRAM  |  CD-R  |    |    |    |    |    |    |
-|  ROM  | CD-RW |    |    |    |    |    |    |
-|  EPROM  |  DVD-R  |    | DRAM (volatile) | EPROM (read only)[^1] |    |    |    |
-| SRAM   | DVD-RW |    | SRAM (volatile) | ROM (read only) |    |    |    |
+|  CD-R  |  RAM  |  ROM  |  flash (nonvolatile)  |  DVD-RW (both)  |    |    |  CD-RW  |
+|  CD-RW  |  ROM  |  EPROM  |  CD-R (nonvolatile)  | CD-RW (both)   |    |    |  DVD-R  |
+|  DVD-R  |  EPROM  | RAM   |  CD-RW (nonvolatile) | RAM (both)   |    |    |  DVD-RW  |
+|  DVD-RW  |  flash  |  flash  |  DVD-R (nonvolatile)  |  hard disk (both)  |    |    | hard disk   |
+|  flash  |  hard disk  |  hard disk  |  DVD-RW (nonvolatile)  |  floppy disk (both)  |    |    |  flash  |
+| RAM   |  floppy disk  |  floppy disk  |  ROM (nonvolatile)  | flash (read-mostly)   |    |    |  EPROM  |
+|  DRAM  |  CD-R  |  DVD-R  |  EPROM (nonvolatile)  |  EPROM (read only)[^1]  |    |    |  ROM  |
+|  ROM  | CD-RW | DVD-RW   |  RAM (volatile)  |  DVD-R (read only)  |    |    |  RAM  |
+|  EPROM  |  DVD-R  | CD-R   | DRAM (volatile) | CD-R (read only) |    |    |  DRAM  |
+| SRAM   | DVD-RW | CD-RW   | SRAM (volatile) | ROM (read only) |    |    |  SRAM  |
 
 [^1]: EPROMs can be reprogrammed in a separate circuit after erasure with ultraviolet light.
 
@@ -41,7 +41,7 @@
 <details><summary>Answer</summary>
 <p>
 
-> A hierarchical memory system uses a mixture of different types of devices in a system in order to trade off the advantages adn disadvantages of each memory system. 
+> A hierarchical memory system uses a mixture of different types of devices in a system in order to trade off the advantages and disadvantages of each memory system. 
 </p>
 </details>
 
@@ -86,7 +86,19 @@
     
     > The worst case scenario would occur if we tried to access every fourth memory location, continually accessing the same device. Effective cycle time will revert to 
     $t$
-    .
+    , or 
+    $15 \ \mathrm{ns}$
+    . 
+    
+    > If ideal conditions exist 80% of the time and worst-case situations 20% of the time:
+    $$
+    .8(3.75 \ \mathrm{ns}) + .2(15 \ \mathrm{ns})
+    $$
+
+    $$
+    3 \ \mathrm{ns} + 3 \ \mathrm{ns} = 6 \ \mathrm{ns}
+    $$
+
     </p>
     </details>
 
@@ -105,7 +117,7 @@
     <details><summary>Answer</summary>
     <p>
     
-    > In systems with multiple processors (or other devices that need to access memory), the memory system is designed to maximize the bandwidth of transfers to or from a single device. So, if one processor is taking advantage of accessing sequentially numbered memory locations, it is using up the full bandwidth or all the memory devices and there is no opportunity for any other processor or device to access memory without halting the first. 
+    > In systems with multiple processors (or other devices that need to access memory), the memory system is designed to maximize the bandwidth of transfers to or from a single device. So, if one processor is taking advantage of accessing sequentially numbered memory locations, it is using up the full bandwidth of all the memory devices and there is no opportunity for any other processor or device to access memory without halting the first. 
     </p>
     </details>
 
@@ -193,7 +205,7 @@ $$
 <details><summary>Answer</summary>
 <p>
 
-> Hit ratio is a dynamic performance parameter. The cache contents change over time, beginning empty and gaining accuracy as the program runs. 
+> Hit ratio is a dynamic performance parameter. The cache contents change over time, beginning empty and gaining accuracy as the program runs, so the performance tends to get better over time. 
 </p>
 </details>
 
@@ -202,7 +214,7 @@ $$
 <details><summary>Answer</summary>
 <p>
 
-> Set-associative cache is cheaper and simpler than fully-associative cache, but has a potentially higher hit ratio and thus better system performance than direct-mapped. 
+> Set-associative cache is cheaper and simpler than fully-associative cache, but has a potentially higher hit ratio and thus better system performance than direct-mapped cache. 
 
 </p>
 </details>
@@ -212,6 +224,19 @@ $$
 
     <details><summary>Answer</summary>
     <p>
+
+    $$
+    \mathrm{refill \ line \ size} = 64 \ \mathrm{bytes}
+    $$
+
+    $$
+    32 \ \mathrm{address \ bits}
+    $$
+    
+    | $11 \ \mathrm{bits}$ | $15 \ \mathrm{bits}$ | $6 \ \mathrm{bits}$ |
+    | -- | -- | -- |
+    | $\mathrm{Tag}$ | $\mathrm{Index}$ | $\mathrm{Byte}$ | 
+
     </p>
     </details>
 
@@ -219,6 +244,17 @@ $$
 
     <details><summary>Answer</summary>
     <p>
+
+    > Honestly, I'm just guessing. Clarify how this calculation is made in lecture
+
+    $$
+    \mathrm{refill \ line \ size} = 64 \ \mathrm{bytes}
+    $$
+
+    | $13 \ \mathrm{bits}$ | $13 \ \mathrm{bits}$ | $6 \ \mathrm{bits}$ |
+    | -- | -- | -- |
+    | $\mathrm{Tag}$ | $\mathrm{Index}$ | $\mathrm{Byte}$ | 
+
     </p>
     </details>
 
@@ -226,6 +262,19 @@ $$
 
     <details><summary>Answer</summary>
     <p>
+
+    > If the byte-addressable main memory uses 
+    $32 \ \mathrm{bit}$
+    addresses and each refill line contains
+    $2^6 = 64 \ \mathrm{bytes}$
+    , then the associative tags will be the upper
+    $32 - 6 = 26$
+    address bits. 
+
+    | $26 \ \mathrm{bits}$ | $6 \ \mathrm{bits}$ | 
+    | -------------- | --------------- |
+    | $\mathrm{Tag}$ | $\mathrm{Byte}$ |
+
     </p>
     </details>
 
@@ -248,24 +297,45 @@ $$
 
 <details><summary>Answer</summary>
 <p>
+
+> In a system using virtual memory, each program has its own virtual address space within which all memory references are contained. 
+
+> In many cases, the code and data for a program are larger than the amount of main memory physically present in a system. With multitasking, other programs can be resident in memory at the same time. The purpose of this large virtual address space is to give the programmer (and compiler) the illusion of huge main memory exclusively allocated for the progra, thus freeing the programmer of the burden of memory management.
+
+> Freeing programmers from memory management concerns is one advantage. Another is the ability to utilize the very large, very slow secondary memory at higher speeds by implementing paged or segmented schemes. This is similar to how cache bridges the gap between main memory and CPU. 
+
+> A disadvantage of this scheme is that virtual addresses must be translated into physical addresses, which takes time. The hardware required adds expense and complexity to the system.
+
 </p>
 </details>
 
-12. Name and describe the two principal approaches to implementing virtual memory systems. How are they similar, and how do they differ. Can they be combined, and if so, how? 
+12.   Name and describe the two principal approaches to implementing virtual memory systems. How are they similar, and how do they differ. Can they be combined, and if so, how? 
 
 <details><summary>Answer</summary>
 <p>
+
+> Paged and segmented are the two principal approaches to virtual memory systems.
+
+> They are similar in that with both systems, blocks of memory are transferred from secondary to main memory on demand, much like cache. 
+
+> They are different in that paged virtual memory uses fixed-size blocks of memory to transfer between main and secondary memory, while segmented virtual memory uses variable-sized blocks of memory. Paged memory can suffer from internal fragmentation, while segmented memory can suffer from external fragmentation.
+
+> The two approaches can be combined into segmentation with paging. Segments are composed of one or more pages, allowing segments to be of variable size up to a maximum. 
+
 </p>
 </details>
 
-13. What is the purpose of having multiple levels of page or segment tables rather than a single table for looking up address translations? What are the disadvantages, if any, of this scheme.
+13.   What is the purpose of having multiple levels of page or segment tables rather than a single table for looking up address translations? What are the disadvantages, if any, of this scheme.
 
 <details><summary>Answer</summary>
 <p>
+
+> With multiple levels, it is no longer necessary to maintain one large table. This allows lookup to be done in a stepwise fashion. It takes longer, but the smaller tables are easier and more efficient to deal with.
+
 </p>
 </details>
 
-14. A process running on a system with demand-paged virtual memory generates the following reference string (sequence of requested pages): 
+14.  A process running on a system with demand-paged virtual memory generates the following reference string (sequence of requested pages): 
 
 > 4, 3, 6, 1, 5, 1, 3, 6, 4, 2, 2, 3
 
@@ -276,24 +346,63 @@ The operating system allocates each process a maximum of four page frames at a t
 
 <details><summary>Answer</summary>
 <p>
+
+| LRU: | | 
+| -- | -- |
+| 4, 3, 6, 1 | loaded initially |
+| 3, 6, 1, 5 | page fault 1 |
+| 3, 6, 1, 4 | page fault 2 |
+| 3, 6, 2, 4 | page fault 3 |
+
+| FIFO: | | 
+| ---- | -- |
+| 4, 3, 6, 1 | loaded initially | 
+| 3, 6, 1, 5 | page fault 1 |
+| 6, 1, 5, 4 | page fault 2 |
+| 1, 5, 4, 2 | page fault 3 |
+| 5, 4, 2, 3 | page fault 4 |
+
+| LFU: | (FIFO tiebreaker) | 
+| --- | --- |
+| 4, 3, 6, 1 | loaded initially |
+| 3, 6, 1, 5 | page fault 1 |
+| 3, 6, 1, 4 | page fault 2 |
+| 3, 6, 1, 2 | page fault 3 |
+
+> Page fault 1 uses FIFO tiebreaker to remove 4. Page fault 2 uses LFU to remove 5. Page fault 3 uses LFU to remove 4. 
+
 </p>
 </details>
 
-15.  In what ways are cache memory and virtual memory similar? In what ways are they different? 
+15.   In what ways are cache memory and virtual memory similar? In what ways are they different? 
 
 <details><summary>Answer</summary>
 <p>
+
+Cache memory and virtual memory both use techniques to make a slower, larger memory accessible via a faster, smaller memory. Cache memory bridges the gap between the CPU and main memory, while virtual memory bridges the gap between main memory and secondary memory. Both concepts rely heavily on the locality of reference to anticipate the CPU's needs. Virtual memory deals with much larger blocks of data than cache, and likely as a result, page or segment faults tend to occur less than cache misses.
+
 </p>
 </details>
 
-16.  In systems that make use of both virtual memory and cache, what are the advantages of a virtually addressed cache? Does a physically addressed cache have any advantages of its own, and if so, what are they? Describe a situation in which one of these approaches would have to be used because the other would not be feasible. 
+1.    In systems that make use of both virtual memory and cache, what are the advantages of a virtually addressed cache? Does a physically addressed cache have any advantages of its own, and if so, what are they? Describe a situation in which one of these approaches would have to be used because the other would not be feasible. 
 
 <details><summary>Answer</summary>
 <p>
+
+> Virtually addressed caches are advantageous because they are fast. The cache controller does not have to wait on the MMU to translate the address before checking for a hit.
+
+> Because all the cache tags and indices are based on a single physical address space, rather than a virtual address space for each process, information can be left in a physically addressed cache when a task switch occurs. In a virtually addressed cache we would be concerned that address
+> $n$
+> from one program is equivalent to address
+> $n$ 
+> in another, meaning cache has to be 'flushed' on each context change. This means a physically addressed cache could have a performance advantage in multithreaded multitasking systems with frequent task changes.
+
+> Physically addressed caches may cause problems to exhibit performance variations between otherwise identical runs, which can significantly impact hit ratio. In a system that needs consistent high performance, physically addressed cache would not be feasible.
+
 </p>
 </details>
 
-17.  Fill in the blanks bellow with the most appropriate term or concept discussed in this chapter: 
+1s7.   Fill in the blanks bellow with the most appropriate term or concept discussed in this chapter: 
 
 ________ A characteristic of a memory device that refers to the amount of information that can be stored in a given physical space or volume.
 
@@ -332,5 +441,44 @@ ________ This can occur during the execution of a string or vector instruction w
 
 <details><summary>Answer</summary>
 <p>
+
+information density | A characteristic of a memory device that refers to the amount of information that can be stored in a given physical space or volume.
+
+DRAM | A semiconductor memory device made up of a large array of capacitors; its contents must be periodically refreshed in order to keep them from being lost. 
+
+MRAM | A developing memory technology that operates on the principle of magnetoresistance; it may allow the devlopment of "instant-on" computer systems. 
+
+EPROM | A type of semiconductor memory device, the contents of which cannot be overwritten during normal operation but can be erased using ultraviolet light.
+
+content addressable memory | This type of memory device is also known as a CAM.
+
+argument register | A register in an associative memory that contains the item to be searched for.
+
+locality of reference | The principle that allows hierarchical storage systems to function at close to the speed of the faster, smaller level(s). 
+
+cache miss | This occurs when a needed instruction or operand is not found in cache, so a main memory access is required.
+
+line | The unit of information that is transferred between a cache and main memory.
+
+tag | The portion of a memory address that determines wheter a cache line contains the needed information. 
+
+> not sure about tag
+
+________ The most flexible but most expensive cache organization, in which a block of information from main memory can reside anywhere in the cache. 
+
+________ A policy whereby writes to cached locations update main memory only when the line is displaced.
+
+________ This is set or cleared to indicate whether a given cache line has been initialized with "good" information  or contains "garbage" because it is not yet initialized.
+
+________ A hardware unit that handles the details of address translation in a system with virtual memory.
+
+________ This occurs when a program makes reference to a logical segment of memory that is not physically present in main memory.
+
+________ A type of cache used to hold virtual-to-physical address translation information.
+
+________ This is set to indicate that the contents of a faster memory subsystem have been modified and need to be copied to the slower memory when they are displaced.
+
+________ This can occur during the execution of a string or vector instruction when part of the operand is present in main physical memory and the rest is not. 
+
 </p>
 </details>
