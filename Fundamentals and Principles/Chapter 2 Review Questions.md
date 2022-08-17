@@ -464,21 +464,23 @@ tag | The portion of a memory address that determines wheter a cache line contai
 
 > not sure about tag
 
-________ The most flexible but most expensive cache organization, in which a block of information from main memory can reside anywhere in the cache. 
+associative | The most flexible but most expensive cache organization, in which a block of information from main memory can reside anywhere in the cache. 
 
-________ A policy whereby writes to cached locations update main memory only when the line is displaced.
+> not sure about associative
 
-________ This is set or cleared to indicate whether a given cache line has been initialized with "good" information  or contains "garbage" because it is not yet initialized.
+write-back | A policy whereby writes to cached locations update main memory only when the line is displaced.
 
-________ A hardware unit that handles the details of address translation in a system with virtual memory.
+valid bit | This is set or cleared to indicate whether a given cache line has been initialized with "good" information  or contains "garbage" because it is not yet initialized.
 
-________ This occurs when a program makes reference to a logical segment of memory that is not physically present in main memory.
+MMU memory management unit | A hardware unit that handles the details of address translation in a system with virtual memory.
 
-________ A type of cache used to hold virtual-to-physical address translation information.
+segment fault | This occurs when a program makes reference to a logical segment of memory that is not physically present in main memory.
 
-________ This is set to indicate that the contents of a faster memory subsystem have been modified and need to be copied to the slower memory when they are displaced.
+TLB translation lookaside buffer | A type of cache used to hold virtual-to-physical address translation information.
 
-________ This can occur during the execution of a string or vector instruction when part of the operand is present in main physical memory and the rest is not. 
+dirty bit | This is set to indicate that the contents of a faster memory subsystem have been modified and need to be copied to the slower memory when they are displaced.
+
+delayed page fault | This can occur during the execution of a string or vector instruction when part of the operand is present in main physical memory and the rest is not. 
 
 </p>
 </details>
