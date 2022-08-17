@@ -2,59 +2,269 @@
 
 1. Consider the various aspects of an ideal computer memory discussed in section 2.1.1 and the characteristics of available memory devices discussed in Section 2.1.2. Fill in the columns of the table below with the following types of memory devices, in order from most desirable to least desirable: magnetic hard disk, semiconductor DRAM, CD-R, DVD-RW, semiconductor ROM, DVD-R, semiconductor flash memory, magnetic floppy disk, CD-RW, semiconductor static RAM, semiconductor EPROM
 
-> Editor's Note:
-> * magnetic hard disk
-> * magnetic floppy disk
+> Note:
+> * hard disk
+> * floppy disk
 > * CD-R
 > * CD-RW
 > * DVD-R
 > * DVD-RW
-> * semiconductor RAM
-> * semiconductor static RAM
-> * semiconductor DRAM
-> * semiconductor ROM
-> * semiconductor EPROM
-> * semiconductor flash memory
+> * RAM
+> * SRAM
+> * DRAM
+> * ROM
+> * EPROM
+> * flash memory
 
-| cost/bit (lower is better) | speed (higher is better) | information density (higher is better) | volatility (non-volatile is better) | readable/writable? (both is usually better) | power consumption (lower is better) | durability (more durable is better) | removable/portable? (more portable is usually better) | 
+
+
+| cost/bit | speed | information density | volatility | readable/writable? | power consumption | durability | removable/portable? | 
 | -- | -- | -- | -- | -- | -- | -- | -- | 
-|    |    |    |    |    |    |    |    |   
-|    |    |    |    |    |    |    |    |
-|    |    |    |    |    |    |    |    |
-|    |    |    |    |    |    |    |    |
-|    |    |    |    |    |    |    |    |
-|    |    |    |    |    |    |    |    |
-|    |    |    |    |    |    |    |    |
-|    |    |    |    |    |    |    |    |
-|    |    |    |    |    |    |    |    |
-|    |    |    |    |    |    |    |    |
-|    |    |    |    |    |    |    |    |
-|    |    |    |    |    |    |    |    |
+| (*lower is better*) | (*higher is better*) | (*higher is better*) | (*non-volatile is better*) | (*both is usually better*) | (*lower is better*) | (*more durable is better*) | (*more portable is usually better*) | 
+| floppy disk |  SRAM  | DRAM | hard disk (nonvolatile) | DRAM (both) |    |    | floppy disk |   
+| hard disk |  DRAM  | SRAM | floppy disk (nonvolatile)   | SRAM (both) |    |    |  CD-R  |
+|  CD-R  |  RAM  |  flash  |  flash (nonvolatile)  |  DVD-RW (both)  |    |    |  CD-RW  |
+|  CD-RW  |    |  hard disk  |  CD-R  | CD-RW (both)   |    |    |  DVD-R  |
+|  DVD-R  |    | floppy disk   |  CD-RW  | RAM (both)   |    |    |  DVD-RW  |
+|  DVD-RW  |    |    |  DVD-R  |    |    |    |    |
+|  flash  |  hard disk  |    |  DVD-RW  |    |    |    |    |
+| RAM   |  floppy disk  |    |    | flash (read-mostly)   |    |    |    |
+|  DRAM  |  CD-R  |    |    |    |    |    |    |
+|  ROM  | CD-RW |    |    |    |    |    |    |
+|  EPROM  |  DVD-R  |    | DRAM (volatile) | EPROM (read only)[^1] |    |    |    |
+| SRAM   | DVD-RW |    | SRAM (volatile) | ROM (read only) |    |    |    |
+
+[^1]: EPROMs can be reprogrammed in a separate circuit after erasure with ultraviolet light.
+
 2. Describe in your own words what a hierarchical memory system is and why it is used in the vast majority of modern computer systems.
+
+<details><summary>Answer</summary>
+<p>
+
+> A hierarchical memory system uses a mixture of different types of devices in a system in order to trade off the advantages adn disadvantages of each memory system. 
+</p>
+</details>
+
 3. What is the fundamental, underlying reason that low-order main memory interleaving and/or cache memories are needed and used in virtually all high-performance computer systems?
+
+<details><summary>Answer</summary>
+<p>
+
+> The CPU is much faster than current memory technologies, and low-order main memory interleaving and/or cache memories allow the speed of memory access to approach the speed of the CPU, vastly improving overall performance. 
+</p>
+</details>
+
 4. A main memory system is designed using 15 ns RAM devices using a four-way low-order interleave.
    1. What would be the effective time per main memory access under ideal conditions?
+
+    <details><summary>Answer</summary>
+    <p>
+
+    > Say the cycle time is 
+    $t$
+    nanoseconds. Under ideal conditions, the effective time per main memory access would be 
+    $\frac{t}{4}$
+    , or 
+    $\frac{15}{4} = 3.75 \ \mathrm{ns}$
+
+    </p>
+    </details>
+
    2. What would constitute ideal conditions? (In other words, under what circumstances could the access time you just calculated be achieved?)
+
+    <details><summary>Answer</summary>
+    <p>
+
+    > Consecutively numbered memory locations would have each successive access to a different device, constituting ideal conditions for low-order interleaving.
+    </p>
+    </details>
+
    3. What would constitute worst-case conditions? (In other words, under what circumstances would memory accesses be the slowest?) What would the access time be in this worst case scenario? If ideal conditions exist 80% of the time and worst-case conditions occur 20% of the time, what would be the average time required per memory access?
+
+    <details><summary>Answer</summary>
+    <p>
+    
+    > The worst case scenario would occur if we tried to access every fourth memory location, continually accessing the same device. Effective cycle time will revert to 
+    $t$
+    .
+    </p>
+    </details>
+
    4. When ideal conditions exist, we would like the processor to be able to access memory every clock cycle with no wait states (that is, without any cycles wasted waiting for memory to respond). Given this requirement, what is the highest processor bus clock frequency that can be used with this memory system?
+
+    <details><summary>Answer</summary>
+    <p>
+
+    > unsure
+
+    </p>
+    </details>
+
    5. Other than increased hardware cost and complexity, are there any potential disadvantages of using a low-order interleaved memory design? If so, discuss one such disadvantage and the circumstances under which it might be significant.
+
+    <details><summary>Answer</summary>
+    <p>
+    
+    > In systems with multiple processors (or other devices that need to access memory), the memory system is designed to maximize the bandwidth of transfers to or from a single device. So, if one processor is taking advantage of accessing sequentially numbered memory locations, it is using up the full bandwidth or all the memory devices and there is no opportunity for any other processor or device to access memory without halting the first. 
+    </p>
+    </details>
+
+
 5. Is it correct to refer to a typical semiconductor integrated circuit ROM as a random access memory? Why or why not? Name and describe two other logical organizations of computer memory that are not random access.
+
+<details><summary>Answer</summary>
+<p>
+
+> It is correct. The critical property of RAM is that all locations are accessed in equal time. ROMs can access any value in the same time. Magnetic disk and CD, among numerous other organizations, are not random access.
+</p>
+</details>
+
 6. Assume that a given system's main memory has an access time of 6.0 ns, and its cache has an access time of 1.2 ns (five times as fast). What would the hit ratio need to be in order for the effective memory access time to be 1.5 ns (four times as fast as main memory)?
-7. A particular program runs on a systme with cache memory. The program makes a total of 250,000 memory references; 235,000 of these are to cached locations.
+
+<details><summary>Answer</summary>
+<p>
+
+> I have no idea, based on the text
+
+$$
+\mathrm{hit \ ratio} = p_h = \frac{\mathrm{number \ of \ hits}}{(\mathrm{number \ of \ hits}) + (\mathrm{number \ of \ misses})}
+$$
+
+$$
+t_{a \ \mathrm{cache}} = \mathrm{speed \ ratio} \times \mathrm{main \ memory \ access \ time} = \frac{1}{5} \times 1.2 \ \mathrm{ns} = .24 \ \mathrm{ns}
+$$
+
+$$
+1.5 \ \mathrm{ns} = .24 \ \mathrm{ns} \ \times p_h + 1.5 \ \mathrm{ns} \ \times (1- p_h)
+$$
+
+</p>
+</details>
+
+7. A particular program runs on a system with cache memory. The program makes a total of 250,000 memory references; 235,000 of these are to cached locations.
    1. What is the hit ratio in this case?
-   2. If the cache can be accessed in 1.0 ns but the main memory requires 7.5 ns for an access to take place, what is the average time required by this program for a memorya access, assuming all accesses are reads? 
+
+    <details><summary>Answer</summary>
+    <p>
+
+    $$
+    \mathrm{hit \ ratio} = p_h = \frac{\mathrm{number \ of \ hits}}{(\mathrm{number \ of \ hits}) + (\mathrm{number \ of \ misses})}
+    $$
+
+    $$
+    p_h = \frac{235,000}{250,000} = .94
+    $$
+
+    </p>
+    </details>
+
+   2. If the cache can be accessed in 1.0 ns but the main memory requires 7.5 ns for an access to take place, what is the average time required by this program for a memory access, assuming all accesses are reads? 
+
+    <details><summary>Answer</summary>
+    <p>
+
+    $$
+    t_{a \ \mathrm{effective}} = t_{a \ \mathrm{cache}} \times p_h  + t_{a \ \mathrm{main}} \times (1- p_h)
+    $$
+
+    $$
+    t_{a \ \mathrm{effective}} = 1 \times .94 + 7.5 \times .06
+    $$
+
+    $$
+    t_{a \ \mathrm{effective}} = .94 + .45 = 1.39 \ \mathrm{ns}
+    $$
+
+    </p>
+    </details>
+
    3. What would be the answer to (7.2) if a write-through policy is used and 75% of memory accesses are reads?
-8. Is hit ratio a dynamic or static performance parameter in a typical computer memory system? Explain your answer. 
+
+    <details><summary>Answer</summary>
+    <p>
+
+    > not really sure
+    
+    </p>
+    </details>
+
+8. Is hit ratio a dynamic or static performance parameter in a typical computer memory system? Explain your answer.
+
+<details><summary>Answer</summary>
+<p>
+
+> Hit ratio is a dynamic performance parameter. The cache contents change over time, beginning empty and gaining accuracy as the program runs. 
+</p>
+</details>
+
 9. What are the advantages of set-associative cache organization as opposed to a direct-mapped or fully associative mapping strategy?
+
+<details><summary>Answer</summary>
+<p>
+
+> Set-associative cache is cheaper and simpler than fully-associative cache, but has a potentially higher hit ratio and thus better system performance than direct-mapped. 
+
+</p>
+</details>
+
 10. A computer has 64 MB of byte-addressable main memory. A proposal is made to design a 1 MB cache memory with a refill line (block) size of 64 bytes.
     1.  Show how the memory address bits would be allocated for a direct mapped cache organization.
+
+    <details><summary>Answer</summary>
+    <p>
+    </p>
+    </details>
+
     2.  Repeat (10.1) for a four-way set-associative cache organization.
+
+    <details><summary>Answer</summary>
+    <p>
+    </p>
+    </details>
+
     3.  Repeat (10.1) for a fully associative cache organization.
+
+    <details><summary>Answer</summary>
+    <p>
+    </p>
+    </details>
+
     4.  Given the direct-mapped organization and ignoring any extra bits that might be needed (valid bit, dirty bit, etc.), what would be the overall size ("depth" by "width") of the memory used to implement the cache? What type of memory devices would be used to implement the cache (be as specific as possible)? 
-    5.  Which line(s) of the direct-mapped cache could main memory location $1 \mathrm{E} 0027 \mathrm{A}_{16}$ map into? (Give the line number\[s\], which will be in the range of 0 to \[n-1\] if ther are n lines in the cache.) Give the memory address (in hexadecimal) of another location that could not reside in cache at the same time as this one (if such a location exists). 
+
+    <details><summary>Answer</summary>
+    <p>
+    </p>
+    </details>
+
+    5.  Which line(s) of the direct-mapped cache could main memory location $1 \mathrm{E} 0027 \mathrm{A}_{16}$ map into? (Give the line number\[s\], which will be in the range of 0 to \[n-1\] if ther are n lines in the cache.) Give the memory address (in hexadecimal) of another location that could not reside in cache at the same time as this one (if such a location exists).
+
+    <details><summary>Answer</summary>
+    <p>
+    </p>
+    </details>
+
+
 11. Define and describe virtual memory. What are its purposes, and what are the advantages and disadvantages of virtual memory systems? 
+
+<details><summary>Answer</summary>
+<p>
+</p>
+</details>
+
 12. Name and describe the two principal approaches to implementing virtual memory systems. How are they similar, and how do they differ. Can they be combined, and if so, how? 
-13. What is the purpose of having multiple levels of page or segment tables rather than a single table for looking up address translations? What are the disadvantages, if any, of this scheme. 
+
+<details><summary>Answer</summary>
+<p>
+</p>
+</details>
+
+13. What is the purpose of having multiple levels of page or segment tables rather than a single table for looking up address translations? What are the disadvantages, if any, of this scheme.
+
+<details><summary>Answer</summary>
+<p>
+</p>
+</details>
+
 14. A process running on a system with demand-paged virtual memory generates the following reference string (sequence of requested pages): 
 
 > 4, 3, 6, 1, 5, 1, 3, 6, 4, 2, 2, 3
@@ -63,9 +273,27 @@ The operating system allocates each process a maximum of four page frames at a t
     1. LRU
     2. FIFO
     3. LFU (with FIFO as tiebreaker)
-15. In what ways are cache memory and virtual memory similar? In what ways are they different? 
-16. In systems that make use of both virtual memory and cache, what are the advantages of a virtually addressed cache? Does a physically addressed cache have any advantages of its own, and if so, what are they? Describe a situation in which one of these approaches would have to be used because the other would not be feasible. 
-17. Fill in the blanks bellow with the msot appropriate term or concept discussed in this chapter: 
+
+<details><summary>Answer</summary>
+<p>
+</p>
+</details>
+
+15.  In what ways are cache memory and virtual memory similar? In what ways are they different? 
+
+<details><summary>Answer</summary>
+<p>
+</p>
+</details>
+
+16.  In systems that make use of both virtual memory and cache, what are the advantages of a virtually addressed cache? Does a physically addressed cache have any advantages of its own, and if so, what are they? Describe a situation in which one of these approaches would have to be used because the other would not be feasible. 
+
+<details><summary>Answer</summary>
+<p>
+</p>
+</details>
+
+17.  Fill in the blanks bellow with the most appropriate term or concept discussed in this chapter: 
 
 ________ A characteristic of a memory device that refers to the amount of information that can be stored in a given physical space or volume.
 
@@ -101,3 +329,8 @@ ________ A type of cache used to hold virtual-to-physical address translation in
 ________ This is set to indicate that the contents of a faster memory subsystem have been modified and need to be copied to the slower memory when they are displaced.
 
 ________ This can occur during the execution of a string or vector instruction when part of the operand is present in main physical memory and the rest is not. 
+
+<details><summary>Answer</summary>
+<p>
+</p>
+</details>
