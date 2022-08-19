@@ -1004,9 +1004,9 @@ Another potential complication exists in a system with paged virtual memory in w
 * by later *restarting* the instruction from the point at which the fault occurred
 * undo, or *roll back*, the effect of the faulting instruction and then re-execute the entire instruction after the needed page is loaded
 
-Both of these mechanisms significantly complicate the design of the processor. Alternatively, the MMU could precheck all locations that will be accessed by a given instruction to see if any of them will cause a page fault, but this would complicate the design of the MMU. [^12] 
+Both of these mechanisms significantly complicate the design of the processor. Alternatively, the MMU could precheck all locations that will be accessed by a given instruction to see if any of them will cause a page fault, but this would complicate the design of the MMU. [^13] 
 
-[^12]: and require its designers to have specific knowledge of the CPU architecture.
+[^13]: and require its designers to have specific knowledge of the CPU architecture.
 
 The delayed page fault problem shows that no part of a computer is designed in a vacuum. CPU design effects memory design and vice versa. 
 
