@@ -2,67 +2,16 @@
 
 ## Digital Logic
 ### Basic Gates
-#### AND
-The output is high only when both inputs A and B are high. The AND operation will be signified by
-$AB$
-Other notations for it are 
-$A \wedge B$
-and 
-$A \cap B$
-, called the intersection of 
-$A$
-and
-$B$
-.[^1]
 
-<p align="center">
-<img src="https://i.imgur.com/LHreZIp.png" width="450">
-</p>
+| Gate | Description | Diagram |
+| ---- | ----------- | ------- |
+| AND | The output is high only when both inputs A and B are high. The AND operation will be signified by $AB$ Other notations for it are $A \wedge B$ and $A \cap B$, called the intersection of $A$ and $B$.[^1] | ![](https://i.imgur.com/LHreZIp.png) |
+| OR | The output is high when either or both of inputs A or B is high. This is logically different from the exclusive OR. The OR operation will be signified by $A+B$. Other notations for it are $A \vee B$ and $A \cup B$, called the union of $A$ and $B$.[^1] | ![](https://i.imgur.com/xfakuWp.png) |
+| XOR | The output is high when either of inputs A or B is high, but not if both A and B are high.[^1] | ![](https://i.imgur.com/W3GXc8T.png) |
+| NAND | The output is high when either of inputs A or B is high, or if neither is high. In other words, it is normally high, going low only if both A and B are high.[^1][^2] | ![](https://i.imgur.com/FuVMA8P.png) |
+| NOR | The output is high only when neither A nor B is high. That is, it is normally high but any kind of non-zero input will take it low.[^1][^2] | ![](https://i.imgur.com/6xMQskk.png) | 
+| XNOR | The output is high when both inputs A and B are high and when neither A nor B is high.[^1] | ![](https://i.imgur.com/svOqw7c.png) |
 
-#### OR
-The output is high when either or both of inputs A or B is high. This is logically different from the exclusive OR. The OR operation will be signified by 
-$A+B$
-. Other notations for it are
-$A \vee B$
-and
-$A \cup B$
-, called the union of 
-$A$
-and
-$B$
-.[^1]
-
-<p align="center">
-<img src="https://i.imgur.com/xfakuWp.png" width="450">
-</p>
-
-#### XOR
-The output is high when either of inputs A or B is high, but not if both A and B are high.[^1]
-
-<p align="center">
-<img src="https://i.imgur.com/W3GXc8T.png" width="450">
-</p>
-
-#### NAND
-The output is high when either of inputs A or B is high, or if neither is high. In other words, it is normally high, going low only if both A and B are high.[^1][^2]
-
-<p align="center">
-<img src="https://i.imgur.com/FuVMA8P.png" width="450">
-</p>
-
-#### NOR
-The output is high only when neither A nor B is high. That is, it is normally high but any kind of non-zero input will take it low.[^1][^2]
-
-<p align="center">
-<img src="https://i.imgur.com/6xMQskk.png" width="450">
-</p>
-
-#### XNOR
-The output is high when both inputs A and B are high and when neither A nor B is high.[^1]
-
-<p align="center">
-<img src="https://i.imgur.com/svOqw7c.png" width="450">
-</p>
 
 [^1]: [Source](http://hyperphysics.phy-astr.gsu.edu/hbase/Electronic/gate.html#c1)
 
