@@ -187,7 +187,3 @@ Many architectures have adopted the compromise of *two-operand instructions* Thi
 [^3]: These two are the only universal logic functions from which all other Boolean functions can be derived. 
 
 [^4]: Hence the name, indexed addressing. 
-
-<p align="center">
-<img src="" width="600">
-</p>
