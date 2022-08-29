@@ -179,6 +179,121 @@ Many architectures have adopted the compromise of *two-operand instructions* Thi
 *Zero-operand instructions* could be used in a machine with *stack architecture*. A limited number of architectures have used this approach, which keeps machine instructions as simple and short as possible (only the op code). Compiler design is also simplified because a stack architecture dispenses with the issue of register allocation. However, stack architectures are slower because operands must be feteched from and stored back to memory for each computation. Thus, stack architectures are even less common than accumulator architectures.
 
 ### 3.1.5 Memory-Register vs. Load-Store Architectures
+Most modern CPUs are designed around a set of several (8, 16, 32, +) general-purpose internal registers due to the limitations of stack and accumulator-based architectures. This allows at least some operands used in computations to be available without the need for a memory accesss. An important question to be answered by the designer of an instruction set is:
+> Do we merely want to *allow* the programmer (or compiler) to use register operands in computations, or will we *require* all computations to use register operands only?
+
+#### 3.1.3.1 Memory-Register
+
+* A *memory-register* architecture is one in which many, if not all, computations may be performed using data in memory and in registers. (Ex. Intel x86 and Motorola 680x0)
+
+* A *memory-memory* architecture allows all of an instruction's operands to be in memory location. 
+
+The advantages of these architectures are:
+* assembly language coding is simplified
+* all of the machine's addressing modes are available to identify an operand for any instruction
+* computational instructions such as ADD behave just like data transfer instructions like MOV. 
+* the assembly language programmer and high-level language compiler have a lot of flexibility in how they perform tasks
+* executable code size tends to be smaller[^5]
+
+The disadvantages of a memory-register architecture (further exacerbated with memory-memory architecture):
+* makes control unit design more complex
+  * any instruction may need to access memory one, two, three, or even four times before it is completed
+  * this complexity can be handled by a *microprogrammed* design, for a speed penalty
+  * instructions with a variable number of memory operands must either be variable in length (complicating the fetch/decode process) or all must be the size of the longest instruction (wasting bits and making programs take up more memory) because the number of bits required to specify a memory location is generally much greater than the number required to specify a register.
+  * the more memory accesses an instruction requires, the more clock cycles it will take to execute. Ideally, we would like instructions to take as few clock cycles as possible and all of them to execute in the same number of clock cycles, if possible. 
+
+Variability in the number of clock cycles per instruction makes it more difficult to *pipeline* instruction execution, critical for CPU performance. 
+
+#### 3.1.3.2 Load-Store 
+The alternative is known as a *load-store* architecture. (Ex. MIPS and SPARC). In a load-store architecture, only the data transfer instructions (typically named 'load' for reading data from memory and 'store for writing data to memory) are able to access variables in memory. **All arithmetic and logic instructions operate only on data in registers**; leaving results in registers. 
+
+Advantages:
+* instructions can be smaller and consistent in size because register addressing require smaller bit fields
+* three-operand instructions are practical
+* control logic is less complex and can be implemented in *hardwired* fashion which may result in a shorter CPU clock cycle. This simplicity is due to computational instructions requiring one data access and data transfer instructions requiring two data accesses. 
+* arithmetic and logic instructions are simple to pipeline; because data memory accesses are done independently of computations, they do not interfere with pipelining as much as they otherwise might.
+
+Disdvantages: 
+* assembly language programming more complex
+* programs tend to require more machine instructions to perform (since all data instructions are separate)
+* more registers must be provided because all operands must be in registers. more registers are more difficult to manage an dmore time-consuming to save and restore when necessary.
+
+Load-store architectures are becoming increasingly popular.
+
+### 3.1.6 CISC and RISC Instruction Sets
+CISC architectures were dominant in the 1960s and 1970s; some have survived well into today (Intel x86). 
+
+CISCs tended to have machine language instruction sets reminiscent of high-level languages. They generally had many different machine instructions, and individual instructions often carried out relatively complex tasks. CISC machines usually had a wide variety of addressing modes to specify operands in memory or registers. To support many different types of instructions while keeping code size small (an important consideration given price of memory at that time), CISC architectures often had variable-length instructions. This complicated control unit design, but by using microcode, designers were able to implement complex control logic without overly extending the time and effort required to design a processor. 
+> The philosophy underlying CISC was to support high-level language by 'bridging the semantic gap', or, by making the assembly and machine language look as much like a high-level language as possible. 
+
+RISC architectures gained favor in the 1980s and 1990s as it became more difficult to extract increased performance from complicated CISC processors. The big, slow microprogrammed control units characteristic of CISC machines limited CPU clock speeds, and thus performance. CISCs had instructions that could do a lot, but took time. The RISC approach was not only to have fewer distinct machine language instructions but for each instruction to do less work.
+
+Instruction sets were designed around the load-store philosophy, with all instruction formats kept to the same length to simplify the fetching and decoding process. Only instructions and addressing modes that contributed to overall performance were included; all extraneous logic was stripped away to make the control unit lighter and faster. 
+
+The most meaningful performance metric was the overall time taken to run one's specific program of interest. The less time it takes a system to execute the code to perform that task, the better. We can break down the time it takes to run a given program (in the absence of interrupts) as:
+
+$$
+\frac{\mathrm{time}}{\mathrm{program}} = \frac{\mathrm{instructions}}{\mathrm{program}} \times \frac{\mathrm{clock \ cycles}}{\mathrm{instruction}} \times \frac{\mathrm{seconds}}{\mathrm{clock \ cycle}}
+$$
+
+In order to reduce the overall time taken to execute a given piece of code, we need to make at least one of the three terms on the right side of the equation smaller, and do so without causing a greater increase in any of the others. CISC machines address this performance equation by trying to minimize the first term in the equation: the number of machine instructions required to carry out a given task. By providing more functionality per instruction, programs are kept smaller. All else being equal, they should thus execute faster. 
+
+The very techniques used to cram more functionality into each machine instruction hindered designer's ability to do anything about the remaining terms in the equation. Complex instructions generally took several clock cycles to execute, and because of the long propagation delays through the control unit and datapath, it proved difficult to increase CPU clock frequencies. (The rightmost term in the equation is the reciprocal of clock frequency.)
+
+With CISC performance stagnating, RISC architects adoted a very different approach. Making individual instructions simpler meant it would take more of them to do the same amount of work, and programs would be larger. However, if this allows the resulting implementation to be streamlined (preferably pipelined), then it may be possible for us to minimize both the number of clock cycles per instruction and the clock cycle time. Gradually RISC processors showed they could outperform their CISC counterparts. 
+
+The main impetus for RISC came from studies of high-level language code compiled for CISC machines. Researchers found that the 80/20 rule was in effect: Roughly 20% of the instructions were doing 80% or more of the work. Many machine instructions were too complex for compilers to find a way to use them, so they never appeared in compiled programs at all. Expert assembly language programmers loved to use such instructions to optimize their code, but the RISC pioneers recognized that in the future, assembly language would be used less and less for serious program development. Their real concern was optimizing system performance while running applications compiled from high-level code. Compilers were not taking full advantage of feature-rich CISC instruction sets, even as these instructions slowed down everything else. [^6]
+
+Thus, RISC designers opted to keep only 20% of instructions. The few remaining needed operations could be synthesized by combining multiple RISC instructions to do the work of one seldom-used CISC instruction. RISC architectures required more effort to develop good, efficient, optimizing compilers, and the compiling process itself generally took longer. But a compiler must only be written once, and a given program must only be compiled one time once it is written and debugged, though it will likely run on a given CPU many times. Trading off incrased compiler complexity for reduced CPU complexity seemed like a good idea.
+
+Two other factors in the rise of RISC:
+* VLSI techniques
+* development of programming languages for hardware design
+
+With the availability of more standardized VLSI logic design elements, such as programmable logic arrays, computer engineers could avoid the haphazard, time-consuming, and error-prone process of designing chips with random logic. This made hard-wired control much more feasible than it had been previously. *Hardware description languages* (HDLs) were devised to allow a software development methodology to be used to design hardware. This negated one of the major advantages previously enjoyed by microprogrammed control unit design.
+
+The reduced number and function of available machine instructions, along with the absence of variable-length instructions, meant RISC programs required more instructions and took up more memory for program code than would a similar CISC program. However, if the simplicity of the control unit and arithmetic hardware were such that the processor's clock speed could be significantly higher and if instructions could be completed in fewer clock cycles, the end result could be a net increase in performance. This benefit, coupled with falling prices for memory over the years, has made RISC architectures more attractive, especially for high-performance machines. Many of the latest architectures borrow features from both RISC and CISC machines.
+
+## 3.2 The Datapath
+The *datapath* is the hardware that is used to carry out the instructions. Regardless of the number or type of instructions provided or the philosophy underlying the instruction set design, any CPU needs circuitry to store binary numbers and perform arithmetic and logical operations on them. 
+
+### 3.2.1 The Register Set
+A machine's programmer-visible *register set* is the most obvious feature of its datapath because the register set is intertwined with the ISA. The visible register set is an architectural feature, and the particulars of the rest of the datapath are merely implementation details. 
+> One machine may have two 64-bit ALUs and another may have a single 32-bit ALU that requires two passes to perform 64-bit operations, but if their register sets (and instruction sets) are the same, they will appear architecturally identical. The only difference will be in observed performance. 
+
+Registers do very litter other than serve as temporary storage for data and addresses. [^7] The fact that registers are explicitly referred to by program instructions that operate on data makes the register set one of the most important architectural features of a given machine.
+
+The most signifiant attributes of a machine's register set are:
+* size (number of registers and width in bits of each)
+* logical organization
+
+Assembly programmers like to have many registers, the more the better. Compilers were once inefficient at using a large register set but have become better at this over the years. However, for both compilers and programmers, there is a diminishing returns effect beyond some optimal number of registers. The number and size of CPU registers was once limited by power consumption and silicon 'real estate'. Now, the determining factors of the number of registers provided are more likely to be:
+* the desired instruction length (more registers means bigger operand fields)
+* the overhead required to save and restore registers on an interrupt or context switch
+* the desire to maintain compatibility with other machines
+* the compiler's ability to make efficient use of the registers
+
+The size of individual registers depends on the numerical precision required and the word width of the computational hardware. 
+> It makes little sense to store 128-bit numbers if the ALU is only 32 bits wide, of if the machine's intended applications do not require 128-bit precision.
+
+Because most architectures allow some form of register-indirect or indexed addressing, register size also depends on the amount of memory the architects want to make addressable by a program. 
+> For example, 16-bit registers allow only 64KB of address space (without resorting to trickery such as the segment registers in the Intel 8086, which allowed 20-bit addresses to be formed from two 16-bit values); 32-bit registers allow for 4GB of addressable space, which used to be considered plenty but has proven insufficient. The next logical step, addressing with 64-bit registers, allows 
+> $2^{64}$
+> bytes of virtual and perhaps one day physical space to be addressed. 
+
+Most contemporary machines could have more (and larger) registers than they do, but designers have found other, more profitable ways to use the available chip area.
+
+Whatever the size of the register set, logical organization is significant. Designers have taken different approaches to allocating registers for different uses. 
+> Some architectures, such as Intel 8086, had special-purpose register sets in which specific registers wre used for specific functions. Multiplication results were always left in the AX and DX registers, and CX was always used to count loop iterations. Others, like Motorola 68000, divide the working registers into two categories of data registers and address registers. All data registers are equal, with the ability to provide operands for and receive results from any of the arithmetic and logical instructions. Address registers only have the capability for simple pointer arithmetic, but any of them can be used with any of the available addressing modes. Some architectures, like VAX and MIPS, make few if any distinctions in terms of functionality and allow any CPU register to be used equally in any operation. SPARC processor's general purpose registers may be used interchangeably for data or addresses, but are logically grouped by scope based on whether they represent:
+> * global variables
+> * local variables within a given procedure
+> * inputs passed to it from a caller
+> * outputs from it to a called subprogram
+
+Whatever the design of a machine's register set, compilers must be designed to be aware of its features and limitations in order to exploit the full performance potential. This is particularly true of RISCs or any machine with a load-store ISA. 
+
+### 3.2.2 Integer Arithmetic Hardware
+
 
 [^1]: Some architectures, particularly RISCs, require this.
 
@@ -187,3 +302,9 @@ Many architectures have adopted the compromise of *two-operand instructions* Thi
 [^3]: These two are the only universal logic functions from which all other Boolean functions can be derived. 
 
 [^4]: Hence the name, indexed addressing. 
+
+[^5]: A given program can contain fewer instructions because the need to move values from memory into registers before performing computations is reduced (or eliminated if both operands can reside in memory).
+
+[^6]: The CPU clock is limited by the slowest logical pat that must be traversed in a cycle.
+
+[^7]: It is possible to implement the programmer's working registers as shift registers rather than as basic storage registers, but for speed and simplicity, the shifting capability is usually located further down the datapath either as part of or following the ALU.
