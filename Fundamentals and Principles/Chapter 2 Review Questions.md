@@ -91,6 +91,7 @@
     . 
     
     > If ideal conditions exist 80% of the time and worst-case situations 20% of the time:
+       
     $$
     .8(3.75 \ \mathrm{ns}) + .2(15 \ \mathrm{ns})
     $$
@@ -402,7 +403,7 @@ Cache memory and virtual memory both use techniques to make a slower, larger mem
 </p>
 </details>
 
-1s7.   Fill in the blanks bellow with the most appropriate term or concept discussed in this chapter: 
+17.   Fill in the blanks bellow with the most appropriate term or concept discussed in this chapter: 
 
 ________ A characteristic of a memory device that refers to the amount of information that can be stored in a given physical space or volume.
 
