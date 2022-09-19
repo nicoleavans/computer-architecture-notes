@@ -108,7 +108,18 @@
     <details><summary>Answer</summary>
     <p>
 
-    > unsure
+    $$
+   \mathrm{frequency} \ = \frac{1}{\mathrm{clock \ cycle \ time}}
+   $$
+
+   > Under ideal conditions, the effective time per main memory access would be
+   $\frac{t}{4}$
+   , or
+   $\frac{15}{4} = 3.75 \mathrm{ \ ns}$
+
+   $$
+   \frac{1}{3.75 \ \mathrm{ns}} = \frac{1}{3.75 \times 10^{-9}\mathrm{s}} = 266666666.7 \frac{\mathrm{cycles}}{\mathrm{second}} = 266.\overline{666} \      \mathrm{MHz}
+   $$
 
     </p>
     </details>
@@ -136,19 +147,44 @@
 
 <details><summary>Answer</summary>
 <p>
-
-> I have no idea, based on the text
-
 $$
-\mathrm{hit \ ratio} = p_h = \frac{\mathrm{number \ of \ hits}}{(\mathrm{number \ of \ hits}) + (\mathrm{number \ of \ misses})}
+t_{a \ \mathrm{effective}} = t_{a \ \mathrm{cache}} \times p_h + t_{a \ \mathrm{main}} \times (1-p_h)
 $$
 
 $$
-t_{a \ \mathrm{cache}} = \mathrm{speed \ ratio} \times \mathrm{main \ memory \ access \ time} = \frac{1}{5} \times 1.2 \ \mathrm{ns} = .24 \ \mathrm{ns}
+\mathrm{hit \ ratio} = p_h 
 $$
 
 $$
-1.5 \ \mathrm{ns} = .24 \ \mathrm{ns} \ \times p_h + 1.5 \ \mathrm{ns} \ \times (1- p_h)
+t_{a \ \mathrm{cache}} = \mathrm{speed \ ratio} \times \mathrm{main \ memory \ access \ time}
+$$
+
+$$
+\mathrm{speed \ ratio} = \frac{\mathrm{cache \ speed}}{\mathrm{main \ memory \ speed}} = \frac{1.2}{6.0} = \frac{1}{5}
+$$
+
+$$
+t_{a \ \mathrm{cache}} = \frac{1}{5} \times 1.2 \ \mathrm{ns} = .24 \ \mathrm{ns}
+$$
+
+$$
+1.5 \ \mathrm{ns} = .24 \ \mathrm{ns} \ \times p_h + 6.0 \ \mathrm{ns} \ \times (1- p_h)
+$$
+
+$$
+1.5 = .24p_h + (6.0 - 6.0p_h)
+$$
+
+$$
+-5.76p_h + 6 = 1.5
+$$
+
+$$
+-5.76p_h = -4.5
+$$
+
+$$
+p_h = .78125 = 78.125 \% 
 $$
 
 </p>
