@@ -294,6 +294,115 @@ Whatever the design of a machine's register set, compilers must be designed to b
 
 ### 3.2.2 Integer Arithmetic Hardware
 
+An elementary ALU (arithmetic/logic unit) can perform addition and subtraction on binary operands as well as some subset of standard, bitwise logic functions (such as AND, OR, NOT, NAND, NOR, XOR, etc.) It may also proide the ability to do bit shifting operations. See a block diagram of a typical ALU:
+
+<p align="center">
+<img src="https://i.imgur.com/kcgdauQ.png" width="600">
+</p>
+
+The control inputs are used to select which arithmetic or logical function the ALU and shifter perform at any given time. One of the ALU functions may be to simply transfer one of the operand inputs to the output without modifications; allowing the shifter to operate directly on register contents and provides for simple register-to-register transfers via the datapath.
+
+The shifter can pass bits through unchanged, or move them left or right. In the case of a barrel shifter, it can move them many positions left or right. 
+
+The ALU typically develops 'condition codes', or status bits that indicate the nature of the result produced (positive/negative, zero/nonzero, overflow or carry). The bitwise logical functions of the ALU are trivial to implement, requiring only a single gate of each desired type per operand bit. Shifting is not much more complex. The complexity of the datapath is in the circuitry that performs arithmetic caluclations.
+
+#### 3.2.2.1 Addition and Subtraction
+Addition and subtraction are the most frequently performed operation in most applications. Thus, it is worthwhile to consider implementations that improve performance at a cost. The *half adder* and *full adder* circuits are the building blocks for performing addition of binary numbers in computers.
+
+<font color="aquamarine">
+Half Adder:
+</font>
+
+<p></p>
+
+<p align="center">
+<img src="https://i.imgur.com/oErgOE9.png" width="450">
+</p>
+
+<font color="aquamarine">
+Full Adder:
+</font>
+
+<p></p>
+
+<p align="center">
+<img src="https://i.imgur.com/QM1TFrj.png" width="550">
+</p>
+
+The half adder is normally useful only for adding the least significant bits 
+$a_0$
+and
+$b_0$
+of two binary numbers, as it has no carry in. It adds two one bit numbers (
+$a_0$
+and
+$b_0$
+) and produces a sum bit
+$s_0$
+and a carry out bit
+$c_1$
+. 
+
+The full adder circuit is useful for adding the bits (in any position) of two binary numbers. The corresponding bits of the two numbers
+$a_i$
+and
+$b_i$ are added to an input carry 
+$c_i$
+to form a sum bit 
+$s_i$
+and a carry out bit 
+$c_{i+1}$
+. Any number of full adders can be cascaded together by connecting the carry out of each less significant position to the carry in of the next more significant position to create the classic *ripple carry adder*:
+
+<p align="center">
+<img src="https://i.imgur.com/Q6akUET.png" width="550">
+</p>
+
+The operation of this circuit is like adding binary numbers by hand. However, because carries must propagate through the entire chain of adders before the final result is obtained, this structure may be intolerably slow for adding large binary numbers.
+
+It is possible to design half and full subtractor circuits in a similar manner, and those can be cascaded in the same fashion to form a *ripple borrow subtractor*. In practice, separate circuits are rarely built to implement subtraction. Instead, signed arithmetic is used, with subtraction being replaced b the addition of the complement of the subtrahend[^8] to the minuend[^9]. The adder can perform as both adder and subtractor.
+
+<font color="aquamarine">
+Combination Adder Subtractor:
+</font>
+
+<p></p>
+
+<p align="center">
+<img src="https://i.imgur.com/FBnDuY9.png" width="650">
+</p>
+
+| Input | Carry In | XNOR output | produces |
+| ----- | -------- | ---- | ---- |
+| $S=0$ | $C_n=0$ | corresponding bit of $B$ | $A+B$ |
+| $S=1$ | $C_n=1$ | complement of the corresponding bit of $B$ | $A+(-B)$ |
+
+The *carry lookahead adder* is faster in terms of computation speed than a ripple carry adder. The concept here is that the bits of the operands (available at the start of computation) contain all the information required to determine all the carries at once. There is no need to wait for carries to ripple through the less significant stages, they can be generated directly from inputs. 
+
+<font color="aquamarine">
+Carry Lookahead Adder:
+</font>
+
+<p></p>
+
+<p align="center">
+<img src="https://i.imgur.com/0aw7QPW.png" width="650">
+</p>
+
+The carry logic of this circuit is based on the fact that when we add two binary numbers, there are always two ways that a carry from one position to the next can be caused. 
+
+> First, if either of the operand bits 
+$a_i$
+or
+$b_i$
+are 
+$1$
+and its carry in bit
+$c_i$ is also 
+
+| if | and | then |
+| -- | --- | ---- | 
+| $a_i$ or $b_i =1$ | 
 
 [^1]: Some architectures, particularly RISCs, require this.
 
@@ -308,3 +417,7 @@ Whatever the design of a machine's register set, compilers must be designed to b
 [^6]: The CPU clock is limited by the slowest logical pat that must be traversed in a cycle.
 
 [^7]: It is possible to implement the programmer's working registers as shift registers rather than as basic storage registers, but for speed and simplicity, the shifting capability is usually located further down the datapath either as part of or following the ALU.
+
+[^8]: subtrahend: a quantity or number to be subtracted from another
+
+[^9]: minuend: a quantity or number from which another is subtracted
